@@ -1,18 +1,26 @@
 package com.kolllor3.lijnhaltecopanian;
 
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.kolllor3.lijnhaltecopanian.util.Utilities;
+import com.kolllor3.lijnhaltecopanian.viewModel.HalteViewModel;
 
 public class MainActivity extends AppCompatActivity {
+
+    private HalteViewModel halteViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,14 +29,31 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        halteViewModel = ViewModelProviders.of(this).get(HalteViewModel.class);
+
+        if(Utilities.isNull(savedInstanceState))
+            halteViewModel.init(this);
+
+        final Spinner spinner = findViewById(R.id.entiteitSpinner);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                halteViewModel.setCurrentEntiteitId(parent.getItemAtPosition(position).toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
+
+        RecyclerView halteList = findViewById(R.id.halteList);
+        halteList.setLayoutManager(new LinearLayoutManager(this));
+        halteList.setAdapter(halteViewModel.getHalteListAdapter());
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show());
     }
 
     @Override

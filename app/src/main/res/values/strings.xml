@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">LijnHalteCopanian</string>
     <string name="action_settings">Settings</string>
+
+    <string-array name="entitiesName">
+        <item>Antwerpen</item>
+        <item>Oost-Vlaanderen</item>
+        <item>Vlaams-Brabant</item>
+        <item>Limburg</item>
+        <item>West-Vlaanderen</item>
+    </string-array>
 </resources>

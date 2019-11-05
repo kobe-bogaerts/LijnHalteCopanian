@@ -1,0 +1,58 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "5280acce43cac514d2e8e13e08fdf0b0",
+    "entities": [
+      {
+        "tableName": "Halte",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`haltenummer` INTEGER NOT NULL, `entiteitnummer` INTEGER NOT NULL, `omschrijving` TEXT, `lat` REAL NOT NULL, `lng` REAL NOT NULL, PRIMARY KEY(`haltenummer`))",
+        "fields": [
+          {
+            "fieldPath": "haltenummer",
+            "columnName": "haltenummer",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "entiteitnummer",
+            "columnName": "entiteitnummer",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "omschrijving",
+            "columnName": "omschrijving",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "lat",
+            "columnName": "lat",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lng",
+            "columnName": "lng",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "haltenummer"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5280acce43cac514d2e8e13e08fdf0b0')"
+    ]
+  }
+}
