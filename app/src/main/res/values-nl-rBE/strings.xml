@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LijnHalteCopanian</string>
+    <string name="action_settings">Instellingen</string>
+    <string name="location_permissions_explain">Deze app gebruikt uw locatie om nabijgelegen haltes voor bus of tram te vinden. Schakel locatiemachtigingen in voor optimaal gebruik van de app.</string>
+</resources>

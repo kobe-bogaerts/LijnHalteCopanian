@@ -9,5 +9,6 @@
         <item>Limburg</item>
         <item>West-Vlaanderen</item>
     </string-array>
-    <string name="title_activity_ask_permission">AskPermissionActivity</string>
+    <string name="askPermissionActivity" translatable="false">AskPermissionActivity</string>
+    <string name="location_permissions_explain">This app uses your location to find nearby stops for bus or tram. Please enable location permissions for best use og the app.</string>
 </resources>
