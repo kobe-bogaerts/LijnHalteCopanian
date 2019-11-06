@@ -15,7 +15,7 @@ public interface HalteDao {
     Halte getHalte(int id);
 
 
-    @Query("Select * from Halte order by (abs(lng -(:lng)) +( abs(lat-:lat)*2.1)) Limit 16;")
+    @Query("Select * from Halte order by (abs(lng -(:lng)) +( abs(lat-:lat)*2.1)) Limit 8;")
     List<Halte> getClosestHaltes(double lat, double lng);
 
     @Query("SELECT * FROM Halte WHERE entiteitnummer=:entiteitId")

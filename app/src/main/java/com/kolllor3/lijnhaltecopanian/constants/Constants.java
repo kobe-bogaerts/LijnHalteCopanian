@@ -16,4 +16,7 @@ public interface Constants {
         put("West-Vlaanderen", 5);
     }};
 
+    int LOCATION_PERMISSION_ASK = 9000;
+    int LOCATION_PERMISSION_SET = 9001;
+
 }

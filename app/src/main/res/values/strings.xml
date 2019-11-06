@@ -9,4 +9,5 @@
         <item>Limburg</item>
         <item>West-Vlaanderen</item>
     </string-array>
+    <string name="title_activity_ask_permission">AskPermissionActivity</string>
 </resources>

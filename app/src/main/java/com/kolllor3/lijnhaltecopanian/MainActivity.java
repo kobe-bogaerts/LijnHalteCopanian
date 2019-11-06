@@ -1,5 +1,8 @@
 package com.kolllor3.lijnhaltecopanian;
 
+import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -7,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
@@ -15,12 +19,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.kolllor3.lijnhaltecopanian.constants.Constants;
+import com.kolllor3.lijnhaltecopanian.providers.LocationProvider;
 import com.kolllor3.lijnhaltecopanian.util.Utilities;
 import com.kolllor3.lijnhaltecopanian.viewModel.HalteViewModel;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Constants {
 
     private HalteViewModel halteViewModel;
+    private LocationProvider locationProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +59,48 @@ public class MainActivity extends AppCompatActivity {
         halteList.setAdapter(halteViewModel.getHalteListAdapter());
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
+        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show());
+
+        //todo:on button click getLocation thingies
+
+        locationProvider = new LocationProvider(this, new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                //todo: update list with halte from location
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+                locationProvider.turnOnLcation();
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case LOCATION_PERMISSION_SET:
+                switch (resultCode) {
+                    case RESULT_OK:
+                        locationProvider.getLocation();
+                        break;
+                    case RESULT_CANCELED:
+                        //todo: show dialog
+                        break;
+                }
+                break;
+        }
     }
 
     @Override
