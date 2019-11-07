@@ -17,7 +17,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.kolllor3.lijnhaltecopanian.constants.Constants;
@@ -30,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements Constants {
 
     private HalteViewModel halteViewModel;
     private LocationProvider locationProvider;
-    private MaterialButton getNearbyButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +55,7 @@ public class MainActivity extends AppCompatActivity implements Constants {
             }
         });
 
-        getNearbyButton = findViewById(R.id.get_nearby_button);
-        getNearbyButton.setOnClickListener(v -> {
-            Intent i = new Intent(this, AskPermissionActivity.class);
-            startActivity(i);
-        });
+        findViewById(R.id.get_nearby_button).setOnClickListener(v -> locationProvider.getLocation());
 
         RecyclerView halteList = findViewById(R.id.halteList);
         halteList.setLayoutManager(new LinearLayoutManager(this));
@@ -69,8 +63,6 @@ public class MainActivity extends AppCompatActivity implements Constants {
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show());
-
-        //todo:on button click getLocation thingies
 
         locationProvider = new LocationProvider(this, new LocationListener() {
             @Override
@@ -106,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements Constants {
                         locationProvider.getLocation();
                         break;
                     case RESULT_CANCELED:
-                        //todo: show dialog
                         break;
                 }
                 break;
