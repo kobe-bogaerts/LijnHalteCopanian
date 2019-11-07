@@ -4,8 +4,10 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -24,6 +26,8 @@ public class AskPermissionActivity extends AppCompatActivity implements Constant
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        findViewById(R.id.location_perm_button).setOnClickListener(v -> askLocationPermission());
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> goToMainActivity());
     }
@@ -34,11 +38,27 @@ public class AskPermissionActivity extends AppCompatActivity implements Constant
             startActivity(i);
         }else{
             //todo: show dialog if ok go to main else close dialog and stay
+            showDialog();
         }
     }
 
     private void askLocationPermission(){
         ActivityCompat.requestPermissions(AskPermissionActivity.this, new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, LOCATION_PERMISSION_ASK);
+    }
+
+    private void showDialog(){
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.location_permissions_dialog_title)
+                .setMessage(R.string.location_permissions_dialog_text)
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                    Intent i = new Intent(this, MainActivity.class);
+                    startActivity(i);
+                })
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                .setNegativeButton(android.R.string.no, null)
+                .show();
     }
 
     @Override
@@ -47,9 +67,11 @@ public class AskPermissionActivity extends AppCompatActivity implements Constant
         if(requestCode == LOCATION_PERMISSION_ASK) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //todo: show granted text
+                Toast.makeText(this, "Granted access", Toast.LENGTH_LONG).show();
                 hasAcceptedPermission = true;
             }else{
                 //todo: show denied text
+                Toast.makeText(this, "Denied access", Toast.LENGTH_LONG).show();
             }
         }
     }

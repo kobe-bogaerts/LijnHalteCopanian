@@ -17,10 +17,12 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.kolllor3.lijnhaltecopanian.constants.Constants;
 import com.kolllor3.lijnhaltecopanian.providers.LocationProvider;
+import com.kolllor3.lijnhaltecopanian.util.LogUtils;
 import com.kolllor3.lijnhaltecopanian.util.Utilities;
 import com.kolllor3.lijnhaltecopanian.viewModel.HalteViewModel;
 
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements Constants {
 
     private HalteViewModel halteViewModel;
     private LocationProvider locationProvider;
+    private MaterialButton getNearbyButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,12 @@ public class MainActivity extends AppCompatActivity implements Constants {
             }
         });
 
+        getNearbyButton = findViewById(R.id.get_nearby_button);
+        getNearbyButton.setOnClickListener(v -> {
+            Intent i = new Intent(this, AskPermissionActivity.class);
+            startActivity(i);
+        });
+
         RecyclerView halteList = findViewById(R.id.halteList);
         halteList.setLayoutManager(new LinearLayoutManager(this));
         halteList.setAdapter(halteViewModel.getHalteListAdapter());
@@ -67,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements Constants {
             @Override
             public void onLocationChanged(Location location) {
                 //todo: update list with halte from location
+                LogUtils.logD("location update", location.toString());
             }
 
             @Override
