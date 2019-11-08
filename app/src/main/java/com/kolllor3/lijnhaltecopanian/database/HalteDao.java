@@ -1,6 +1,5 @@
 package com.kolllor3.lijnhaltecopanian.database;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -17,7 +16,7 @@ public interface HalteDao {
 
 
     @Query("Select * from Halte order by (abs(lng -(:lng)) +( abs(lat-:lat)*2.1)) Limit 8;")
-    LiveData<List<Halte>> getClosestHaltes(double lat, double lng);
+    List<Halte> getClosestHaltes(double lat, double lng);
 
     @Query("SELECT * FROM Halte WHERE entiteitnummer=:entiteitId")
     List<Halte> getAllHaltesByEntiteit(int entiteitId);
