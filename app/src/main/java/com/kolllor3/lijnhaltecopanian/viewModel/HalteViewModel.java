@@ -2,9 +2,11 @@ package com.kolllor3.lijnhaltecopanian.viewModel;
 
 import android.app.Activity;
 import android.app.Application;
+import android.location.Location;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 import com.kolllor3.lijnhaltecopanian.adapter.HalteListAdapter;
 import com.kolllor3.lijnhaltecopanian.constants.Constants;
@@ -37,6 +39,14 @@ public class HalteViewModel extends AndroidViewModel implements Constants, Retur
         return halteListAdapter;
     }
 
+    public LiveData<List<Halte>> getNearbyHaltes(){
+        return mRepository.getNearbyHaltes();
+    }
+
+    public void setCurrentLocation(Location location){
+        mRepository.setLocation(location);
+    }
+
 
     @SuppressWarnings("ConstantConditions")
     public void setCurrentEntiteitId(String entiteitName) {
@@ -54,6 +64,6 @@ public class HalteViewModel extends AndroidViewModel implements Constants, Retur
     @Override
     public void getResult(List<Halte> result) {
         halteList = result;
-        halteListAdapter.setHalteItems(halteList);
+        //halteListAdapter.setHalteItems(halteList);
     }
 }

@@ -37,7 +37,7 @@ public class LocationProvider implements Constants {
     {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
             Intent i = new Intent(context, AskPermissionActivity.class);
-            context.startActivity(i);
+            context.startActivityForResult(i, LOCATION_PERMISSION_RESULT);
             return false;
         }
         else {

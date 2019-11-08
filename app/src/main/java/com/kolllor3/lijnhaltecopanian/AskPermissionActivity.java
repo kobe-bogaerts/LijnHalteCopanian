@@ -35,9 +35,10 @@ public class AskPermissionActivity extends AppCompatActivity implements Constant
     private void goToMainActivity(){
         if(hasAcceptedPermission){
             Intent i = new Intent(this, MainActivity.class);
-            startActivity(i);
+            i.setAction(ASK_LOCATION_RETURN_ACTION);
+            setResult(LOCATION_PERMISSION_RESULT, i);
+            finish();
         }else{
-            //todo: show dialog if ok go to main else close dialog and stay
             showDialog();
         }
     }
