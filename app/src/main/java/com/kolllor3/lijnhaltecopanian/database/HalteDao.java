@@ -9,6 +9,10 @@ import com.kolllor3.lijnhaltecopanian.model.Halte;
 
 import java.util.List;
 
+import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.Query;
+
 @Dao
 public interface HalteDao {
 
