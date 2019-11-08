@@ -21,6 +21,7 @@ import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.tasks.Task;
 import com.kolllor3.lijnhaltecopanian.AskPermissionActivity;
 import com.kolllor3.lijnhaltecopanian.constants.Constants;
+import com.kolllor3.lijnhaltecopanian.util.Utilities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,7 @@ public class LocationProvider implements Constants {
 
         locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(10 * 1000);
+        locationRequest.setInterval(30 * 1000);
     }
 
     private boolean checkLocationPermission()
@@ -76,16 +77,15 @@ public class LocationProvider implements Constants {
         }
     }
 
+    public void removeListener(){
+        if(Utilities.isNotNull(mFusedLocationClient) && Utilities.isNotNull(listener))
+            mFusedLocationClient.removeLocationUpdates(listener);
+    }
+
     private void turnOnLcation()
     {
-        LocationRequest locationRequest = LocationRequest.create();
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(30 * 1000);
-        locationRequest.setFastestInterval(5 * 1000);
-
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
         builder.setAlwaysShow(true);
-
 
         SettingsClient client = LocationServices.getSettingsClient(context);
         Task<LocationSettingsResponse> task = client.checkLocationSettings(builder.build());

@@ -7,4 +7,5 @@
     <string name="location_permissions_dialog_title">Locatie machtigingen</string>
     <string name="location_permissions_dialog_text">Weet u zeker dat u geen locatiemachtigingen wilt inschakelen? Het biedt een betere app-ervaring.</string>
     <string name="nearby_stops_button_text">Zoek naar nabijgelegen haltes</string>
+    <string name="add_favorite_button_text">Voeg de geselecteerde haltes toe aan mijn favoriete haltes</string>
 </resources>

@@ -9,10 +9,12 @@
         <item>Limburg</item>
         <item>West-Vlaanderen</item>
     </string-array>
+    <string name="title_activity_add_favorite_halte" translatable="false">AddFavoriteHalteActivity</string>
     <string name="askPermissionActivity" translatable="false">AskPermissionActivity</string>
     <string name="location_permissions_explain">This app uses your location to find nearby stops for bus or tram. Please enable location permissions for best use og the app.</string>
     <string name="location_perm_buton_text">Give Location Permissions</string>
     <string name="location_permissions_dialog_title">Location Permissions</string>
     <string name="location_permissions_dialog_text">Are you sure you don\'t want location permissions turned on? It provides better app experience.</string>
     <string name="nearby_stops_button_text">Search for nearby stops</string>
+    <string name="add_favorite_button_text">Add the selected stops to my favorite stops</string>
 </resources>

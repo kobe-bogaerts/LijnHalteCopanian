@@ -67,11 +67,9 @@ public class AskPermissionActivity extends AppCompatActivity implements Constant
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if(requestCode == LOCATION_PERMISSION_ASK) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //todo: show granted text
                 Toast.makeText(this, "Granted access", Toast.LENGTH_LONG).show();
                 hasAcceptedPermission = true;
             }else{
-                //todo: show denied text
                 Toast.makeText(this, "Denied access", Toast.LENGTH_LONG).show();
             }
         }

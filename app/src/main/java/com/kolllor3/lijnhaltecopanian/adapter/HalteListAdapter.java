@@ -8,21 +8,19 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
-import com.kolllor3.lijnhaltecopanian.BR;
-
 import com.kolllor3.lijnhaltecopanian.R;
 import com.kolllor3.lijnhaltecopanian.model.Halte;
-import com.kolllor3.lijnhaltecopanian.viewModel.HalteViewModel;
+import com.kolllor3.lijnhaltecopanian.viewModel.BaseHalteViewModel;
 
 import java.util.List;
 
 public class HalteListAdapter extends RecyclerView.Adapter<HalteListAdapter.HalteViewHolder> {
 
     private List<Halte> halteItems;
-    private HalteViewModel modelView;
+    private BaseHalteViewModel modelView;
     private Activity activity;
 
-    public HalteListAdapter(HalteViewModel modelView, Activity activity) {
+    public HalteListAdapter(BaseHalteViewModel modelView, Activity activity) {
         this.modelView = modelView;
         this.activity = activity;
     }
@@ -67,9 +65,9 @@ public class HalteListAdapter extends RecyclerView.Adapter<HalteListAdapter.Halt
             this.binding = binding;
         }
 
-        void bind(Halte item, HalteViewModel model){
-            binding.setVariable(BR.item, item);
-            binding.setVariable(BR.viewModel, model);
+        void bind(Halte item, BaseHalteViewModel model){
+            binding.setVariable(com.kolllor3.lijnhaltecopanian.BR.item, item);
+            binding.setVariable(com.kolllor3.lijnhaltecopanian.BR.viewModel, model);
         }
     }
 }
