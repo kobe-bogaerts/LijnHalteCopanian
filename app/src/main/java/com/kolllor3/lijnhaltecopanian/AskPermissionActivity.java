@@ -44,7 +44,7 @@ public class AskPermissionActivity extends AppCompatActivity implements Constant
     }
 
     private void askLocationPermission(){
-        ActivityCompat.requestPermissions(AskPermissionActivity.this, new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, LOCATION_PERMISSION_ASK);
+        ActivityCompat.requestPermissions(AskPermissionActivity.this, new String[] { Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION_ASK);
     }
 
     private void showDialog(){

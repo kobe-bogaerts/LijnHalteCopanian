@@ -2,17 +2,17 @@ package com.kolllor3.lijnhaltecopanian.providers;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
-import android.location.LocationListener;
-import android.location.LocationManager;
-
-import androidx.core.content.ContextCompat;
+import android.location.Location;
+import android.os.Looper;
 
 import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
@@ -21,16 +21,27 @@ import com.google.android.gms.tasks.Task;
 import com.kolllor3.lijnhaltecopanian.AskPermissionActivity;
 import com.kolllor3.lijnhaltecopanian.constants.Constants;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import androidx.core.content.ContextCompat;
+
 public class LocationProvider implements Constants {
 
-    private Activity context;
-    private LocationManager locationManager;
-    private LocationListener listener;
+    private FusedLocationProviderClient mFusedLocationClient;
 
-    public LocationProvider(Activity context, LocationListener listener) {
+    private Activity context;
+    private LocationCallback listener;
+    private LocationRequest locationRequest;
+
+    public LocationProvider(Activity context, LocationCallback listener) {
         this.context = context;
         this.listener = listener;
-        locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
+
+        locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(10 * 1000);
     }
 
     private boolean checkLocationPermission()
@@ -46,11 +57,24 @@ public class LocationProvider implements Constants {
     }
 
     public void getLocation(){
-        if(checkLocationPermission())
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, listener);
+        if (checkLocationPermission()) {
+            mFusedLocationClient.getLastLocation().addOnSuccessListener(context, location -> {
+                if (location != null) {
+                    List<Location> locations = new ArrayList<>();
+                    locations.add(location);
+                    listener.onLocationResult(LocationResult.create(locations));
+                } else {
+                    turnOnLcation();
+                    mFusedLocationClient.requestLocationUpdates(locationRequest, listener, Looper.myLooper());
+                }
+            });
+        }
+        //else {
+          //  mFusedLocationClient.requestLocationUpdates(mLocationRequest, listener, Looper.myLooper());
+        //}
     }
 
-    public void turnOnLcation()
+    private void turnOnLcation()
     {
         LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);

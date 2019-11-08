@@ -19,19 +19,6 @@
         android:text="@string/nearby_stops_button_text"
         android:textSize="@dimen/normal_text_size"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/entiteitSpinner"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Spinner
-        android:id="@+id/entiteitSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:entries="@array/entitiesName"
-        app:layout_constraintBottom_toTopOf="@+id/halteList"
-        app:layout_constraintEnd_toStartOf="@+id/get_nearby_button"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -45,6 +32,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/entiteitSpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/get_nearby_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,10 +4,6 @@ import android.app.Activity;
 import android.app.Application;
 import android.location.Location;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-
 import com.kolllor3.lijnhaltecopanian.adapter.HalteListAdapter;
 import com.kolllor3.lijnhaltecopanian.constants.Constants;
 import com.kolllor3.lijnhaltecopanian.database.DataBaseReposetory;
@@ -18,12 +14,15 @@ import com.kolllor3.lijnhaltecopanian.util.Utilities;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
+
 public class HalteViewModel extends AndroidViewModel implements Constants, ReturnInterface {
 
     private HalteListAdapter halteListAdapter;
     private DataBaseReposetory mRepository;
     private List<Halte> halteList = new ArrayList<>();
-    private int currentEntiteitId = 1;
 
     public HalteViewModel(@NonNull Application application) {
         super(application);
@@ -32,14 +31,14 @@ public class HalteViewModel extends AndroidViewModel implements Constants, Retur
 
     public void init(Activity activity){
         halteListAdapter = new HalteListAdapter(this, activity);
-        mRepository.getAllHaltesFromEntiteit(currentEntiteitId);
+        mRepository.setActivity(activity);
     }
 
     public HalteListAdapter getHalteListAdapter() {
         return halteListAdapter;
     }
 
-    public LiveData<List<Halte>> getNearbyHaltes(){
+    public MutableLiveData<List<Halte>> getNearbyHaltes(){
         return mRepository.getNearbyHaltes();
     }
 
@@ -47,15 +46,16 @@ public class HalteViewModel extends AndroidViewModel implements Constants, Retur
         mRepository.setLocation(location);
     }
 
-
+    @Deprecated
     @SuppressWarnings("ConstantConditions")
     public void setCurrentEntiteitId(String entiteitName) {
         if(Utilities.isNotNull(entiteitName) && ENTITEITEN.containsKey(entiteitName)) {
-            this.currentEntiteitId = ENTITEITEN.get(entiteitName);
+            int currentEntiteitId = ENTITEITEN.get(entiteitName);
             mRepository.getAllHaltesFromEntiteit(currentEntiteitId);
         }
     }
 
+    @Deprecated
     public List<Halte> getHaltesFromSelectedEntiteit(){
         return halteList;
     }

@@ -2,14 +2,12 @@ package com.kolllor3.lijnhaltecopanian;
 
 import android.content.Intent;
 import android.location.Location;
-import android.location.LocationListener;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Spinner;
 
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -18,6 +16,8 @@ import com.kolllor3.lijnhaltecopanian.providers.LocationProvider;
 import com.kolllor3.lijnhaltecopanian.util.LogUtils;
 import com.kolllor3.lijnhaltecopanian.util.Utilities;
 import com.kolllor3.lijnhaltecopanian.viewModel.HalteViewModel;
+
+import java.util.Locale;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,19 +43,6 @@ public class MainActivity extends AppCompatActivity implements Constants {
         if(Utilities.isNull(savedInstanceState))
             halteViewModel.init(this);
 
-        final Spinner spinner = findViewById(R.id.entiteitSpinner);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                halteViewModel.setCurrentEntiteitId(parent.getItemAtPosition(position).toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
         getNearbyButton = findViewById(R.id.get_nearby_button);
         getNearbyButton.setOnClickListener(v -> locationProvider.getLocation());
 
@@ -68,26 +55,19 @@ public class MainActivity extends AppCompatActivity implements Constants {
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show());
 
-        locationProvider = new LocationProvider(this, new LocationListener() {
+        locationProvider = new LocationProvider(this, new LocationCallback() {
             @Override
-            public void onLocationChanged(Location location) {
-                LogUtils.logD("location update", location.toString());
-                halteViewModel.setCurrentLocation(location);
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-                locationProvider.turnOnLcation();
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    return;
+                }
+                for (Location location : locationResult.getLocations()) {
+                    if (location != null) {
+                        double wayLatitude = location.getLatitude();
+                        double wayLongitude = location.getLongitude();
+                        halteViewModel.setCurrentLocation(location);
+                        LogUtils.logI("location stuff", String.format(Locale.US, "%s -- %s", wayLatitude, wayLongitude));            }
+                }
             }
         });
     }
