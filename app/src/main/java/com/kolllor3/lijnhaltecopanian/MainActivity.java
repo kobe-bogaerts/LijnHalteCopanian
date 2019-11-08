@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements Constants {
                         locationProvider.getLocation();
                         break;
                     case RESULT_CANCELED:
-                        //todo: show dialog
                         break;
                 }
                 break;

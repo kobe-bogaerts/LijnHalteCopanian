@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Build;
 import android.os.Looper;
 
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -57,21 +58,22 @@ public class LocationProvider implements Constants {
     }
 
     public void getLocation(){
-        if (checkLocationPermission()) {
-            mFusedLocationClient.getLastLocation().addOnSuccessListener(context, location -> {
-                if (location != null) {
-                    List<Location> locations = new ArrayList<>();
-                    locations.add(location);
-                    listener.onLocationResult(LocationResult.create(locations));
-                } else {
-                    turnOnLcation();
-                    mFusedLocationClient.requestLocationUpdates(locationRequest, listener, Looper.myLooper());
-                }
-            });
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkLocationPermission()) {
+                mFusedLocationClient.getLastLocation().addOnSuccessListener(context, location -> {
+                    if (location != null) {
+                        List<Location> locations = new ArrayList<>();
+                        locations.add(location);
+                        listener.onLocationResult(LocationResult.create(locations));
+                    } else {
+                        turnOnLcation();
+                        mFusedLocationClient.requestLocationUpdates(locationRequest, listener, Looper.myLooper());
+                    }
+                });
+            }
+        }else {
+           mFusedLocationClient.requestLocationUpdates(locationRequest, listener, Looper.myLooper());
         }
-        //else {
-          //  mFusedLocationClient.requestLocationUpdates(mLocationRequest, listener, Looper.myLooper());
-        //}
     }
 
     private void turnOnLcation()
