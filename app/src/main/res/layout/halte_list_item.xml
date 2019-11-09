@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
             name="item"
@@ -10,7 +11,7 @@
             type="com.kolllor3.lijnhaltecopanian.viewModel.BaseHalteViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:onClick="@{()->viewModel.setSelectedHalte(item)}">
@@ -18,9 +19,9 @@
 
         <TextView
             android:id="@+id/halteNumber"
-            android:text="@{``+item.haltenummer}"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -29,17 +30,26 @@
 
         <TextView
             android:id="@+id/halteName"
-            android:text="@{item.omschrijving}"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/halteNumber"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/halteNumber"
+            app:layout_constraintEnd_toStartOf="@+id/select_checkbox"
+            app:layout_constraintHorizontal_bias="0.08"
+            app:layout_constraintStart_toEndOf="@+id/halteNumber" />
+
+        <CheckBox
+            android:id="@+id/select_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:button="@drawable/custom_checkbutton"
+            android:checked="true"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:theme="@style/checkBoxStyle"
+            app:layout_constraintBaseline_toBaselineOf="@+id/halteName"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
