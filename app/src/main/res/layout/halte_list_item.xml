@@ -19,6 +19,7 @@
 
         <TextView
             android:id="@+id/halteNumber"
+            android:text="@{``+item.haltenummer}"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -30,6 +31,7 @@
 
         <TextView
             android:id="@+id/halteName"
+            android:text="@{item.omschrijving}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -44,7 +46,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:button="@drawable/custom_checkbutton"
-            android:checked="true"
             android:scaleX="0.5"
             android:scaleY="0.5"
             android:theme="@style/checkBoxStyle"
