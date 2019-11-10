@@ -20,15 +20,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/delete_favorite_halte_button"
+        style="@style/buttonTheme"
+        android:text="@string/delete_selected_favorite_button_text"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@+id/favorite_title"
+        app:layout_constraintEnd_toEndOf="@+id/halteList" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/halteList"
-        android:background="@drawable/border"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="32dp"
+        android:background="@drawable/border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

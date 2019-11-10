@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">LijnHalteCopanian</string>
     <string name="action_settings">Settings</string>
+    <string name="action_edit">Edit Favorites</string>
 
     <string-array name="entitiesName">
         <item>Antwerpen</item>
@@ -18,4 +19,5 @@
     <string name="nearby_stops_button_text">Search for nearby stops</string>
     <string name="add_favorite_button_text">Add the selected stops to my favorite stops</string>
     <string name="favorite_haltes_text"><u>Favorite stops</u></string>
+    <string name="delete_selected_favorite_button_text">Delete selected items</string>
 </resources>

@@ -56,6 +56,10 @@ public class HalteListAdapter extends RecyclerView.Adapter<HalteListAdapter.Halt
         activity.runOnUiThread(this::notifyDataSetChanged);
     }
 
+    public List<Halte> getHalteItems() {
+        return halteItems;
+    }
+
     class HalteViewHolder extends RecyclerView.ViewHolder {
         private ViewDataBinding binding;
 

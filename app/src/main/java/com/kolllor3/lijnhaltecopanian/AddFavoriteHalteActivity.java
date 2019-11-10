@@ -77,7 +77,9 @@ public class AddFavoriteHalteActivity extends AppCompatActivity implements Const
             for (Halte halte : favoriteHalteViewModel.getCurrentSelectedFavoriteHaltes()) {
                 favoriteHalteViewModel.addFavoriteHalte(halte.getHaltenummer());
             }
-            Toast.makeText(getBaseContext(), "Favorites are added!", Toast.LENGTH_LONG).show();
+            favoriteHalteViewModel.resetCurrentSelectedFavoriteHaltes();
+            Toast.makeText(getBaseContext(), "Favorites are added!", Toast.LENGTH_SHORT).show();
+            finish();
         });
 
         favoriteHalteViewModel.getSelectedHalte().observe(this, halte -> {

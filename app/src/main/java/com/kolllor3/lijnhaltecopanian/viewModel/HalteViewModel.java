@@ -2,12 +2,9 @@ package com.kolllor3.lijnhaltecopanian.viewModel;
 
 import android.app.Activity;
 import android.app.Application;
-import android.location.Location;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.kolllor3.lijnhaltecopanian.adapter.HalteListAdapter;
 import com.kolllor3.lijnhaltecopanian.constants.Constants;
@@ -32,15 +29,11 @@ public class HalteViewModel extends BaseHalteViewModel implements Constants {
         return halteListAdapter;
     }
 
-    public MutableLiveData<List<Halte>> getNearbyHaltes(){
-        return mRepository.getNearbyHaltes();
-    }
-
-    public void setCurrentLocation(Location location){
-        mRepository.setLocation(location);
-    }
-
     public LiveData<List<Halte>> getFavoriteHaltes(){
         return mRepository.getFavoriteHaltes();
+    }
+
+    public void setIsCheckboxVisible(boolean isCheckboxVisible){
+        this.isCheckboxVisible = isCheckboxVisible;
     }
 }

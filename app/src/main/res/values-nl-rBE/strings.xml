@@ -9,4 +9,6 @@
     <string name="nearby_stops_button_text">Zoek naar nabijgelegen haltes</string>
     <string name="add_favorite_button_text">Voeg de geselecteerde haltes toe aan mijn favoriete haltes</string>
     <string name="favorite_haltes_text"><u>Favoriete haltes</u></string>
+    <string name="action_edit">Favorieten aanpassen</string>
+    <string name="delete_selected_favorite_button_text">Verwijder geselecteerde items</string>
 </resources>
