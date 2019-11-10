@@ -3,8 +3,12 @@ package com.kolllor3.lijnhaltecopanian;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
@@ -14,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationResult;
 import com.kolllor3.lijnhaltecopanian.constants.Constants;
+import com.kolllor3.lijnhaltecopanian.model.Halte;
 import com.kolllor3.lijnhaltecopanian.providers.LocationProvider;
 import com.kolllor3.lijnhaltecopanian.util.LogUtils;
 import com.kolllor3.lijnhaltecopanian.util.Utilities;
@@ -32,6 +37,13 @@ public class AddFavoriteHalteActivity extends AppCompatActivity implements Const
         setContentView(R.layout.activity_add_favorite_halte);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //displays the back arrow left top
+        ActionBar actionBar = getSupportActionBar();
+        if(Utilities.isNotNull(actionBar)){
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         favoriteHalteViewModel = ViewModelProviders.of(this).get(AddFavoriteHalteViewModel.class);
 
@@ -61,15 +73,30 @@ public class AddFavoriteHalteActivity extends AppCompatActivity implements Const
             }
         });
 
+        findViewById(R.id.add_favorite_button).setOnClickListener(v -> {
+            for (Halte halte : favoriteHalteViewModel.getCurrentSelectedFavoriteHaltes()) {
+                favoriteHalteViewModel.addFavoriteHalte(halte.getHaltenummer());
+            }
+            Toast.makeText(getBaseContext(), "Favorites are added!", Toast.LENGTH_LONG).show();
+        });
+
         favoriteHalteViewModel.getSelectedHalte().observe(this, halte -> {
             //todo: start halte activity met realtime data
         });
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        locationProvider.removeListener();
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

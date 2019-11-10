@@ -17,4 +17,5 @@
     <string name="location_permissions_dialog_text">Are you sure you don\'t want location permissions turned on? It provides better app experience.</string>
     <string name="nearby_stops_button_text">Search for nearby stops</string>
     <string name="add_favorite_button_text">Add the selected stops to my favorite stops</string>
+    <string name="favorite_haltes_text"><u>Favorite stops</u></string>
 </resources>

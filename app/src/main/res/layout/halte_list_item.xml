@@ -50,7 +50,8 @@
             android:scaleY="0.5"
             android:theme="@style/checkBoxStyle"
             app:layout_constraintBaseline_toBaselineOf="@+id/halteName"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:onClick="@{(view)-> viewModel.onCheckboxClicked(view, item)}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

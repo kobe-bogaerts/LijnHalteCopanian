@@ -1,6 +1,7 @@
 package com.kolllor3.lijnhaltecopanian.viewModel;
 
 import android.app.Application;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -35,4 +36,6 @@ public abstract class BaseHalteViewModel extends AndroidViewModel {
     public void removeFavoriteHalte(int halteNummer){
         mRepository.removeFavoriteHalte(halteNummer);
     }
+
+    public void onCheckboxClicked(View view, Halte halte) { }
 }
