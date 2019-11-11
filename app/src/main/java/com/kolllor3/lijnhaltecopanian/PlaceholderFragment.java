@@ -4,27 +4,36 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.kolllor3.lijnhaltecopanian.viewModel.PageViewModel;
+import com.kolllor3.lijnhaltecopanian.constants.Constants;
+import com.kolllor3.lijnhaltecopanian.util.LijnCustomRequest;
+import com.kolllor3.lijnhaltecopanian.util.LogUtils;
+import com.kolllor3.lijnhaltecopanian.viewModel.TimeTableViewModel;
+
+import org.json.JSONException;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class PlaceholderFragment extends Fragment {
+public class PlaceholderFragment extends Fragment implements Constants {
 
-    private static final String ARG_SECTION_NUMBER = "section_number";
+    private static final String ARG_HALTE_NUMBER = "halte_number";
+    private static final String ARG_ENTITEIT_NUMBER = "entiteit_number";
 
-    private PageViewModel pageViewModel;
+    private TimeTableViewModel timeTableViewModel;
+    private int haltenummer;
+    private int halteentiteit;
 
-    public static PlaceholderFragment newInstance(int index) {
+
+    public static PlaceholderFragment newInstance(int haltenummer, int halteentiteit) {
         PlaceholderFragment fragment = new PlaceholderFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(ARG_SECTION_NUMBER, index);
+        bundle.putInt(ARG_HALTE_NUMBER, haltenummer);
+        bundle.putInt(ARG_ENTITEIT_NUMBER, halteentiteit);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -32,18 +41,31 @@ public class PlaceholderFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
-        int index = 1;
+        timeTableViewModel = ViewModelProviders.of(this).get(TimeTableViewModel.class);
         if (getArguments() != null) {
-            index = getArguments().getInt(ARG_SECTION_NUMBER);
+            haltenummer = getArguments().getInt(ARG_HALTE_NUMBER);
+            halteentiteit = getArguments().getInt(ARG_ENTITEIT_NUMBER);
         }
-        pageViewModel.setIndex(index);
+        timeTableViewModel.setIndex(haltenummer);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_halte_time_table, container, false);
-
+        getDienstRegeling();
         return root;
+    }
+
+    private void getDienstRegeling(){
+        LijnCustomRequest request = new LijnCustomRequest(API_HALE_URL.concat(String.valueOf(halteentiteit)).concat("/").concat(String.valueOf(haltenummer)).concat(DIENSTREGELING_PATH), null, response -> {
+            try {
+                LogUtils.logE("response", response.getJSONArray("doorkomsten").toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }, error -> {
+            LogUtils.logE("error", error.toString());
+        });
+        App.getInstance().addTorequestQueue(request);
     }
 }

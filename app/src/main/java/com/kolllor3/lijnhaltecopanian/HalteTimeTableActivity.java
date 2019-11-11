@@ -15,9 +15,6 @@ import com.kolllor3.lijnhaltecopanian.util.Utilities;
 
 public class HalteTimeTableActivity extends AppCompatActivity {
 
-    private int haltenummer;
-    private int halteentiteit;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,8 +22,8 @@ public class HalteTimeTableActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        haltenummer = getIntent().getIntExtra("haltenummer", 0);
-        halteentiteit = getIntent().getIntExtra("halteentiteit", 0);
+        int haltenummer = getIntent().getIntExtra("haltenummer", 0);
+        int halteentiteit = getIntent().getIntExtra("halteentiteit", 0);
 
         //displays the back arrow left top
         ActionBar actionBar = getSupportActionBar();
@@ -37,6 +34,8 @@ public class HalteTimeTableActivity extends AppCompatActivity {
         }
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        sectionsPagerAdapter.setHaltenummer(haltenummer);
+        sectionsPagerAdapter.setEntiteitnummer(halteentiteit);
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
