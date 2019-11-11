@@ -25,12 +25,15 @@ public class HalteTimeTableActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        haltenummer = getIntent().getIntExtra("haltenummer", 0);
+        halteentiteit = getIntent().getIntExtra("halteentiteit", 0);
+
         //displays the back arrow left top
         ActionBar actionBar = getSupportActionBar();
         if(Utilities.isNotNull(actionBar)){
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(getIntent().getStringExtra("name"));
+            actionBar.setTitle(String.format("%s %11d",getIntent().getStringExtra("name"), haltenummer));
         }
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
@@ -38,9 +41,6 @@ public class HalteTimeTableActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-
-        haltenummer = getIntent().getIntExtra("haltenummer", 0);
-        halteentiteit = getIntent().getIntExtra("halteentiteit", 0);
     }
 
     @Override
