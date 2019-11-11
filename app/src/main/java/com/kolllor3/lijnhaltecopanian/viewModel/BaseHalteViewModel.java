@@ -9,7 +9,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.kolllor3.lijnhaltecopanian.adapter.HalteListAdapter;
-import com.kolllor3.lijnhaltecopanian.database.DataBaseRepository;
+import com.kolllor3.lijnhaltecopanian.database.HalteRepository;
 import com.kolllor3.lijnhaltecopanian.model.Halte;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import java.util.List;
 public abstract class BaseHalteViewModel extends AndroidViewModel {
 
     HalteListAdapter halteListAdapter;
-    DataBaseRepository mRepository;
+    HalteRepository mRepository;
     private MutableLiveData<Halte> selectedHalte = new MutableLiveData<>();
     private List<Halte> currentSelectedFavoriteHaltes = new ArrayList<>();
     boolean isCheckboxVisible;

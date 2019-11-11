@@ -8,7 +8,7 @@ import androidx.lifecycle.LiveData;
 
 import com.kolllor3.lijnhaltecopanian.adapter.HalteListAdapter;
 import com.kolllor3.lijnhaltecopanian.constants.Constants;
-import com.kolllor3.lijnhaltecopanian.database.DataBaseRepository;
+import com.kolllor3.lijnhaltecopanian.database.HalteRepository;
 import com.kolllor3.lijnhaltecopanian.model.Halte;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public class HalteViewModel extends BaseHalteViewModel implements Constants {
 
     public HalteViewModel(@NonNull Application application) {
         super(application);
-        mRepository = new DataBaseRepository(application);
+        mRepository = new HalteRepository(application);
     }
 
     public void init(Activity activity){

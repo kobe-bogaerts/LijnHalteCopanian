@@ -12,13 +12,13 @@ import com.kolllor3.lijnhaltecopanian.util.Utilities;
 
 import java.util.List;
 
-public class DataBaseRepository {
+public class HalteRepository {
 
     private HalteDao halteDao;
     private FavoriteHalteDao favoriteHalteDao;
     private MutableLiveData<Location> location = new MutableLiveData<>(new Location("none"));
 
-    public DataBaseRepository(Application application) {
+    public HalteRepository(Application application) {
         HalteDataBase db = HalteDataBase.getDatabase(application);
         halteDao = db.getHalteDao();
         favoriteHalteDao = db.getFavoriteHalteDao();

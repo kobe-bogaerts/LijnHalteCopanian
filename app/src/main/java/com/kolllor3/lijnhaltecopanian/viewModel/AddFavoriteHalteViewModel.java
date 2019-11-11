@@ -7,7 +7,7 @@ import android.location.Location;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import com.kolllor3.lijnhaltecopanian.adapter.HalteListAdapter;
-import com.kolllor3.lijnhaltecopanian.database.DataBaseRepository;
+import com.kolllor3.lijnhaltecopanian.database.HalteRepository;
 import com.kolllor3.lijnhaltecopanian.model.Halte;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class AddFavoriteHalteViewModel extends BaseHalteViewModel {
 
     public AddFavoriteHalteViewModel(@NonNull Application application) {
         super(application);
-        mRepository = new DataBaseRepository(application);
+        mRepository = new HalteRepository(application);
         isCheckboxVisible = true;
     }
 

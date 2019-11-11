@@ -52,20 +52,7 @@ public class PlaceholderFragment extends Fragment implements Constants {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_halte_time_table, container, false);
-        getDienstRegeling();
-        return root;
-    }
 
-    private void getDienstRegeling(){
-        LijnCustomRequest request = new LijnCustomRequest(API_HALE_URL.concat(String.valueOf(halteentiteit)).concat("/").concat(String.valueOf(haltenummer)).concat(DIENSTREGELING_PATH), null, response -> {
-            try {
-                LogUtils.logE("response", response.getJSONArray("doorkomsten").toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }, error -> {
-            LogUtils.logE("error", error.toString());
-        });
-        App.getInstance().addTorequestQueue(request);
+        return root;
     }
 }
