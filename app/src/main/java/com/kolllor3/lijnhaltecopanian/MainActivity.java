@@ -71,7 +71,11 @@ public class MainActivity extends AppCompatActivity implements Constants {
         });
 
         halteViewModel.getSelectedHalte().observe(this, halte -> {
-            //todo: start halte activity met realtime data
+            Intent i = new Intent(this, HalteTimeTableActivity.class);
+            i.putExtra("haltenummer", halte.getHaltenummer());
+            i.putExtra("name", halte.getOmschrijving());
+            i.putExtra("halteentiteit", halte.getEntiteitnummer());
+            startActivity(i);
         });
     }
 

@@ -14,7 +14,7 @@ public interface FavoriteHalteDao {
     @Query("SELECT * FROM Halte WHERE haltenummer in(SELECT haltenummer FROM favoritehalte)")
     LiveData<List<Halte>> getFavoriteHaltes();
 
-    @Query("INSERT INTO favoritehalte(haltenummer) VALUES(:id)")
+    @Query("INSERT INTO favoritehalte(haltenummer) SELECT :id WHERE NOT EXISTS(SELECT 1 FROM favoritehalte WHERE haltenummer = :id)")
     void addFavoriteHalte(int id);
 
     @Query("DELETE FROM favoritehalte WHERE haltenummer=:id")

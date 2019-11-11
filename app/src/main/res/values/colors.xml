@@ -3,4 +3,5 @@
     <color name="colorPrimary">#FEDD03</color>
     <color name="colorPrimaryDark">#CFB50B</color>
     <color name="colorAccent">#000000</color>
+    <color name="grey_card_background">#BEBEBE</color>
 </resources>

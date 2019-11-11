@@ -11,4 +11,6 @@
     <string name="favorite_haltes_text"><u>Favoriete haltes</u></string>
     <string name="action_edit">Favorieten aanpassen</string>
     <string name="delete_selected_favorite_button_text">Verwijder geselecteerde items</string>
+    <string name="tab_text_1">Realtime gegevens</string>
+    <string name="tab_text_2">Dienstregeling</string>
 </resources>
