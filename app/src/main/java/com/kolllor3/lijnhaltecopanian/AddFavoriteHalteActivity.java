@@ -83,7 +83,6 @@ public class AddFavoriteHalteActivity extends AppCompatActivity implements Const
         });
 
         favoriteHalteViewModel.getSelectedHalte().observe(this, halte -> {
-            //todo: start halte activity met realtime data
             Intent i = new Intent(this, HalteTimeTableActivity.class);
             i.putExtra("haltenummer", halte.getHaltenummer());
             i.putExtra("name", halte.getOmschrijving());

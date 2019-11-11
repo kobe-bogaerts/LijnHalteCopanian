@@ -22,7 +22,6 @@ public class HalteViewModel extends BaseHalteViewModel implements Constants {
 
     public void init(Activity activity){
         halteListAdapter = new HalteListAdapter(this, activity);
-        mRepository.setActivity(activity);
     }
 
     public HalteListAdapter getHalteListAdapter() {

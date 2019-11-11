@@ -5,8 +5,7 @@ import android.app.Application;
 import android.location.Location;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.MutableLiveData;
-
+import androidx.lifecycle.LiveData;
 import com.kolllor3.lijnhaltecopanian.adapter.HalteListAdapter;
 import com.kolllor3.lijnhaltecopanian.database.DataBaseRepository;
 import com.kolllor3.lijnhaltecopanian.model.Halte;
@@ -23,14 +22,13 @@ public class AddFavoriteHalteViewModel extends BaseHalteViewModel {
 
     public void init(Activity activity){
         halteListAdapter = new HalteListAdapter(this, activity);
-        mRepository.setActivity(activity);
     }
 
     public HalteListAdapter getHalteListAdapter() {
         return halteListAdapter;
     }
 
-    public MutableLiveData<List<Halte>> getNearbyHaltes(){
+    public LiveData<List<Halte>> getNearbyHaltes(){
         return mRepository.getNearbyHaltes();
     }
 
