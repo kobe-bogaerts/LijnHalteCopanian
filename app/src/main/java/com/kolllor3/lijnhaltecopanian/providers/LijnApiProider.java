@@ -24,19 +24,18 @@ import java.util.Locale;
 
 public class LijnApiProider implements Constants {
 
-    MutableLiveData<List<TimeTableItem>> timeTable = new MutableLiveData<>();
+    private MutableLiveData<List<TimeTableItem>> timeTable = new MutableLiveData<>();
 
-    public void getDienstRegeling(int halteentiteit, int haltenummer){
+    public void getDienstRegeling(int haltenummer, int halteentiteit){
         LijnCustomRequest request = new LijnCustomRequest(API_HALE_URL.concat(String.valueOf(halteentiteit)).concat("/").concat(String.valueOf(haltenummer)).concat(DIENSTREGELING_PATH), null, response -> {
             try {
                 List<TimeTableItem> timeTableForHalte = new ArrayList<>();
-                JSONArray doorkomstenArray = response.getJSONArray("doorkomsten");
+                JSONArray doorkomstenArray = response.getJSONArray("halteDoorkomsten").getJSONObject(0).getJSONArray("doorkomsten");
                 LogUtils.logE("response", doorkomstenArray.toString());
 
-                SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-ddTkk:mm:ss", Locale.getDefault());
+                SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd'T'kk:mm:ss", Locale.getDefault());
                 Calendar c = Calendar.getInstance();
 
-                //todo: create timetable
                 for (int i = 0; i < doorkomstenArray.length(); i++) {
                     JSONObject object = doorkomstenArray.getJSONObject(i);
                     Date date = dateFormat.parse(object.getString("dienstregelingTijdstip"));

@@ -1,20 +1,27 @@
 package com.kolllor3.lijnhaltecopanian.viewModel;
 
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
-import androidx.lifecycle.ViewModel;
 
-public class TimeTableViewModel extends ViewModel {
+import com.kolllor3.lijnhaltecopanian.database.TimeTableRepository;
+import com.kolllor3.lijnhaltecopanian.model.TimeTableItem;
 
-    private MutableLiveData<Integer> mIndex = new MutableLiveData<>();
-    private LiveData<String> mText = Transformations.map(mIndex, input -> "Hello world from section: " + input);
+import java.util.List;
 
-    public void setIndex(int index) {
-        mIndex.setValue(index);
+public class TimeTableViewModel extends AndroidViewModel {
+
+    private TimeTableRepository mRepository;
+
+
+    public TimeTableViewModel(@NonNull Application application) {
+        super(application);
+        mRepository = new TimeTableRepository(application);
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<List<TimeTableItem>> getDienstRegeling(int haltenummer, int halteentiteit){
+        return mRepository.getDienstRegeling(haltenummer, halteentiteit);
     }
 }
