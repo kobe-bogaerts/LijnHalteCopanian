@@ -41,7 +41,7 @@ public class LijnApiProider implements Constants {
                     Date date = dateFormat.parse(object.getString("dienstregelingTijdstip"));
                     if (Utilities.isNotNull(date)) {
                         c.setTime(date);
-                        timeTableForHalte.add(new TimeTableItem(haltenummer, object.getInt("lijnnummer"), c.get(Calendar.HOUR), c.get(Calendar.MINUTE), c.get(Calendar.DAY_OF_WEEK), object.getString("bestemming"), false));
+                        timeTableForHalte.add(new TimeTableItem(haltenummer, object.getInt("lijnnummer"), c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), c.get(Calendar.DAY_OF_WEEK), object.getString("bestemming"), false));
                     }
                 }
 
@@ -49,9 +49,7 @@ public class LijnApiProider implements Constants {
             } catch (JSONException | ParseException e) {
                 e.printStackTrace();
             }
-        }, error -> {
-            LogUtils.logE("error", error.toString());
-        });
+        }, error -> LogUtils.logE("error", error.toString()));
         App.getInstance().addTorequestQueue(request);
     }
 

@@ -2,7 +2,6 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-        <import type="android.view.View"/>
         <variable
             name="item"
             type="com.kolllor3.lijnhaltecopanian.model.Halte" />

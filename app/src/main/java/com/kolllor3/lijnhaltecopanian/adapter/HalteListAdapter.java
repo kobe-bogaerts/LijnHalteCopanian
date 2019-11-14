@@ -10,6 +10,7 @@ import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 import com.kolllor3.lijnhaltecopanian.R;
 import com.kolllor3.lijnhaltecopanian.model.Halte;
+import com.kolllor3.lijnhaltecopanian.util.Utilities;
 import com.kolllor3.lijnhaltecopanian.viewModel.BaseHalteViewModel;
 
 import java.util.List;
@@ -52,8 +53,10 @@ public class HalteListAdapter extends RecyclerView.Adapter<HalteListAdapter.Halt
     }
 
     public void setHalteItems(List<Halte> items){
-        halteItems = items;
-        activity.runOnUiThread(this::notifyDataSetChanged);
+        if(Utilities.isNotNull(activity)) {
+            halteItems = items;
+            activity.runOnUiThread(this::notifyDataSetChanged);
+        }
     }
 
     public List<Halte> getHalteItems() {

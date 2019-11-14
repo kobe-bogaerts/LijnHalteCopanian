@@ -8,8 +8,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.kolllor3.lijnhaltecopanian.constants.Constants;
+import com.kolllor3.lijnhaltecopanian.util.Utilities;
 import com.kolllor3.lijnhaltecopanian.viewModel.TimeTableViewModel;
 
 
@@ -36,6 +39,10 @@ public class TimeTableFragment extends Fragment implements Constants {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         timeTableViewModel = ViewModelProviders.of(this).get(TimeTableViewModel.class);
+
+        if(Utilities.isNull(savedInstanceState))
+            timeTableViewModel.init(getActivity());
+
         if (getArguments() != null) {
             haltenummer = getArguments().getInt(ARG_HALTE_NUMBER);
             halteentiteit = getArguments().getInt(ARG_ENTITEIT_NUMBER);
@@ -46,9 +53,11 @@ public class TimeTableFragment extends Fragment implements Constants {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_halte_time_table, container, false);
 
-        timeTableViewModel.getDienstRegeling(haltenummer, halteentiteit).observe(this, timeTableItems -> {
+        RecyclerView timeLineList = root.findViewById(R.id.timeline);
+        timeLineList.setLayoutManager(new LinearLayoutManager(getContext()));
+        timeLineList.setAdapter(timeTableViewModel.getAdapter());
 
-        });
+        timeTableViewModel.getDienstRegeling(haltenummer, halteentiteit).observe(this, timeTableItems -> timeTableViewModel.getAdapter().setTimeTableItems(timeTableItems));
 
         return root;
     }
