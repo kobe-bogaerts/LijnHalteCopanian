@@ -1,6 +1,7 @@
 package com.kolllor3.lijnhaltecopanian;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kolllor3.lijnhaltecopanian.constants.Constants;
+import com.kolllor3.lijnhaltecopanian.model.TimeTableItem;
 import com.kolllor3.lijnhaltecopanian.util.Utilities;
 import com.kolllor3.lijnhaltecopanian.viewModel.TimeTableViewModel;
 
@@ -39,7 +41,7 @@ public class TimeTableFragment extends Fragment implements Constants {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         timeTableViewModel = ViewModelProviders.of(this).get(TimeTableViewModel.class);
-
+        timeTableViewModel.cancelGetDienstregelingRequest();
         if(Utilities.isNull(savedInstanceState))
             timeTableViewModel.init(getActivity());
 
@@ -57,7 +59,19 @@ public class TimeTableFragment extends Fragment implements Constants {
         timeLineList.setLayoutManager(new LinearLayoutManager(getContext()));
         timeLineList.setAdapter(timeTableViewModel.getAdapter());
 
-        timeTableViewModel.getDienstRegeling(haltenummer, halteentiteit).observe(this, timeTableItems -> timeTableViewModel.getAdapter().setTimeTableItems(timeTableItems));
+        timeTableViewModel.getDienstRegeling(haltenummer, halteentiteit).observe(this, timeTableItems -> {
+            if(timeTableItems.size() > 0) {
+                timeTableViewModel.cancelGetDienstregelingRequest();
+            }
+            timeTableViewModel.getAdapter().setTimeTableItems(timeTableItems);
+        });
+
+        //Todo: remove deze debug
+        timeTableViewModel.getAll().observe(this, timeTableItems -> {
+            for (TimeTableItem item: timeTableItems) {
+                Log.i("db data", item.toString());
+            }
+        });
 
         return root;
     }

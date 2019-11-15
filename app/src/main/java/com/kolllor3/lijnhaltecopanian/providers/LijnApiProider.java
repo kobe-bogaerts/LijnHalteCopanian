@@ -1,10 +1,8 @@
 package com.kolllor3.lijnhaltecopanian.providers;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
 import com.kolllor3.lijnhaltecopanian.App;
 import com.kolllor3.lijnhaltecopanian.constants.Constants;
+import com.kolllor3.lijnhaltecopanian.database.TimeTableDao;
 import com.kolllor3.lijnhaltecopanian.model.TimeTableItem;
 import com.kolllor3.lijnhaltecopanian.util.LijnCustomRequest;
 import com.kolllor3.lijnhaltecopanian.util.LogUtils;
@@ -24,16 +22,21 @@ import java.util.Locale;
 
 public class LijnApiProider implements Constants {
 
-    private MutableLiveData<List<TimeTableItem>> timeTable = new MutableLiveData<>();
+    private TimeTableDao timeTableDao;
+
+    public LijnApiProider(TimeTableDao timeTableDao) {
+        this.timeTableDao = timeTableDao;
+    }
 
     public void getDienstRegeling(int haltenummer, int halteentiteit){
+        //TODO: run this on background thread
         LijnCustomRequest request = new LijnCustomRequest(API_HALE_URL.concat(String.valueOf(halteentiteit)).concat("/").concat(String.valueOf(haltenummer)).concat(DIENSTREGELING_PATH), null, response -> {
             try {
                 List<TimeTableItem> timeTableForHalte = new ArrayList<>();
                 JSONArray doorkomstenArray = response.getJSONArray("halteDoorkomsten").getJSONObject(0).getJSONArray("doorkomsten");
                 LogUtils.logE("response", doorkomstenArray.toString());
 
-                SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd'T'kk:mm:ss", Locale.getDefault());
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'kk:mm:ss", Locale.getDefault());
                 Calendar c = Calendar.getInstance();
 
                 for (int i = 0; i < doorkomstenArray.length(); i++) {
@@ -45,15 +48,12 @@ public class LijnApiProider implements Constants {
                     }
                 }
 
-                timeTable.setValue(timeTableForHalte);
+                //todo: remove doinbackound once this function runs in background
+                Utilities.doInBackground(()->timeTableDao.insert(timeTableForHalte.toArray(new TimeTableItem[0])));
             } catch (JSONException | ParseException e) {
                 e.printStackTrace();
             }
         }, error -> LogUtils.logE("error", error.toString()));
-        App.getInstance().addTorequestQueue(request);
-    }
-
-    public LiveData<List<TimeTableItem>> getTimeTable() {
-        return timeTable;
+        App.getInstance().addTorequestQueue(request, GET_DIENSTREGELING_TAG);
     }
 }

@@ -9,8 +9,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.github.vipulasri.timelineview.TimelineView;
-import com.kolllor3.lijnhaltecopanian.R;
 import com.kolllor3.lijnhaltecopanian.model.TimeTableItem;
 import com.kolllor3.lijnhaltecopanian.util.Utilities;
 import com.kolllor3.lijnhaltecopanian.viewModel.TimeTableViewModel;
@@ -19,13 +17,15 @@ import java.util.List;
 
 public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.TimeLineViewHolder>{
 
+    private int listItemRecouceId;
     private List<TimeTableItem> items;
     private TimeTableViewModel viewHolder;
     private Activity activity;
 
-    public TimeTableAdapter(TimeTableViewModel viewModel, Activity activity) {
+    public TimeTableAdapter(TimeTableViewModel viewModel, Activity activity, int listItemRecouceId) {
         this.viewHolder = viewModel;
         this.activity = activity;
+        this.listItemRecouceId = listItemRecouceId;
     }
 
     @NonNull
@@ -33,7 +33,7 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.Time
     public TimeTableAdapter.TimeLineViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         ViewDataBinding viewDataBinding = DataBindingUtil.inflate(inflater, viewType, parent, false);
-        return new TimeLineViewHolder(viewDataBinding, viewType);
+        return new TimeLineViewHolder(viewDataBinding);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.Time
 
     @Override
     public int getItemViewType(int position) {
-        return R.layout.timeline_list_item;
+        return listItemRecouceId;
     }
 
     @Override
@@ -63,10 +63,8 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.Time
 
         private ViewDataBinding binding;
 
-        TimeLineViewHolder(ViewDataBinding binding, int viewType) {
+        TimeLineViewHolder(ViewDataBinding binding) {
             super(binding.getRoot());
-            TimelineView timelineView = binding.getRoot().findViewById(R.id.timeline);
-            timelineView.initLine(viewType);
             this.binding = binding;
         }
 

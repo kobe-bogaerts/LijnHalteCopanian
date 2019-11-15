@@ -15,15 +15,18 @@ public class TimeTableRepository {
     private TimeTableDao timeTableDao;
 
     public TimeTableRepository(Application application) {
-        lijnApiProider = new LijnApiProider();
         TimeTableDataBase db = TimeTableDataBase.getDatabase(application);
         timeTableDao = db.getTimeTableDao();
+        lijnApiProider = new LijnApiProider(timeTableDao);
     }
 
     public LiveData<List<TimeTableItem>> getDienstRegeling(int haltenummer, int halteentiteit, int dayOfWeek){
         //return db, weekeleks update request sture
         lijnApiProider.getDienstRegeling(haltenummer, halteentiteit);
-        return timeTableDao.getTimeTableFromDayOfWeek(dayOfWeek);
-        //return lijnApiProider.getTimeTable();
+        return timeTableDao.getTimeTableFromDayOfWeek(haltenummer, dayOfWeek);
+    }
+
+    public LiveData<List<TimeTableItem>> getAll(){
+        return timeTableDao.getAll();
     }
 }
