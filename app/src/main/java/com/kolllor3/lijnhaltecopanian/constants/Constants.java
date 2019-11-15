@@ -5,7 +5,7 @@ import java.util.Map;
 
 public interface Constants {
 
-        String API_KEY = "9269fdb9cff44305a56fa665545a11cc";
+    String API_KEY = "9269fdb9cff44305a56fa665545a11cc";
     String API_URL = "https://api.delijn.be/DLKernOpenData/api/v1/";
     String API_HALE_URL = "https://api.delijn.be/DLKernOpenData/api/v1/haltes/";
     String DIENSTREGELING_PATH = "/dienstregelingen";
