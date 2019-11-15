@@ -5,31 +5,35 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import java.time.LocalTime;
-import java.util.Calendar;
-
 @Entity(tableName = "timeTable")
 public class TimeTableItem {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
+
     private int haltenummer;
+
     private int lijnnummer;
+
     private int hour;
+
     private int minute;
+
     private int dayOfWeek;
+
     private String bestemming;
-    private boolean isVacation;
 
     @Ignore
-    public TimeTableItem(int haltenummer, int lijnnummer, int hour, int minute, int dayOfWeek, String bestemming, boolean isVacation) {
+    public TimeTableItem(int haltenummer, int lijnnummer, int hour, int minute, int dayOfWeek, String bestemming) {
         this.haltenummer = haltenummer;
         this.lijnnummer = lijnnummer;
         this.hour = hour;
         this.minute = minute;
         this.dayOfWeek = dayOfWeek;
         this.bestemming = bestemming;
-        this.isVacation = isVacation;
+    }
+
+    public TimeTableItem() {
     }
 
     public int getHaltenummer() {
@@ -80,12 +84,12 @@ public class TimeTableItem {
         this.bestemming = bestemming;
     }
 
-    public boolean isVacation() {
-        return isVacation;
+    public int getId() {
+        return id;
     }
 
-    public void setVacation(boolean vacation) {
-        isVacation = vacation;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Ignore

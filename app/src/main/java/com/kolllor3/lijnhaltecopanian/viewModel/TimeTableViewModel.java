@@ -11,6 +11,7 @@ import com.kolllor3.lijnhaltecopanian.adapter.TimeTableAdapter;
 import com.kolllor3.lijnhaltecopanian.database.TimeTableRepository;
 import com.kolllor3.lijnhaltecopanian.model.TimeTableItem;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class TimeTableViewModel extends AndroidViewModel {
@@ -33,6 +34,7 @@ public class TimeTableViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<TimeTableItem>> getDienstRegeling(int haltenummer, int halteentiteit){
-        return mRepository.getDienstRegeling(haltenummer, halteentiteit);
+        Calendar c = Calendar.getInstance();
+        return mRepository.getDienstRegeling(haltenummer, halteentiteit, c.get(Calendar.DAY_OF_WEEK));
     }
 }

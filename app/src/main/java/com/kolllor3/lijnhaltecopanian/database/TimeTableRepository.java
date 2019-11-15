@@ -12,13 +12,18 @@ import java.util.List;
 public class TimeTableRepository {
 
     private LijnApiProider lijnApiProider;
+    private TimeTableDao timeTableDao;
 
     public TimeTableRepository(Application application) {
         lijnApiProider = new LijnApiProider();
+        TimeTableDataBase db = TimeTableDataBase.getDatabase(application);
+        timeTableDao = db.getTimeTableDao();
     }
 
-    public LiveData<List<TimeTableItem>> getDienstRegeling(int haltenummer, int halteentiteit){
+    public LiveData<List<TimeTableItem>> getDienstRegeling(int haltenummer, int halteentiteit, int dayOfWeek){
+        //return db, weekeleks update request sture
         lijnApiProider.getDienstRegeling(haltenummer, halteentiteit);
-        return lijnApiProider.getTimeTable();
+        return timeTableDao.getTimeTableFromDayOfWeek(dayOfWeek);
+        //return lijnApiProider.getTimeTable();
     }
 }
