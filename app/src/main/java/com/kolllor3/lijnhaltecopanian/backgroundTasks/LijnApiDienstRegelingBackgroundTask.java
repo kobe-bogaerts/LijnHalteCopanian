@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class LijnApiDienstRegelingBackgroundTask extends  AsyncTask<JSONObject, Void, Void> implements Constants {
+public class LijnApiDienstRegelingBackgroundTask extends AsyncTask<JSONObject, Void, Void> implements Constants {
 
     private TimeTableDao timeTableDao;
     private WorkerCallback callback;

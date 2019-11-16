@@ -14,6 +14,7 @@ import com.kolllor3.lijnhaltecopanian.database.TimeTableDataBase;
 import com.kolllor3.lijnhaltecopanian.interfaces.WorkerCallback;
 import com.kolllor3.lijnhaltecopanian.model.Halte;
 import com.kolllor3.lijnhaltecopanian.providers.LijnApiProider;
+import com.kolllor3.lijnhaltecopanian.util.Utilities;
 
 import java.util.List;
 
@@ -59,10 +60,16 @@ public class DienstRegelingBackgroundWorker extends ListenableWorker {
                 }
             };
 
-            favHaltes = favoriteHalteDao.getAllFavoriteHaltesToList();
-            for (Halte halte: favHaltes) {
-                lijnApiProider.getDienstRegeling(halte.getHaltenummer(), halte.getEntiteitnummer(), callback);
-            }
+            Utilities.doInBackground(()->{
+                favHaltes = favoriteHalteDao.getAllFavoriteHaltesToList();
+                if(favHaltes.size() > 0) {
+                    for (Halte halte : favHaltes) {
+                        lijnApiProider.getDienstRegeling(halte.getHaltenummer(), halte.getEntiteitnummer(), callback);
+                    }
+                }else{
+                    callback.onAllCompleted();
+                }
+            });
             return callback;
         });
 
