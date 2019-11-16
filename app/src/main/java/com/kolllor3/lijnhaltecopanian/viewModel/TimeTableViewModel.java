@@ -41,6 +41,10 @@ public class TimeTableViewModel extends AndroidViewModel implements Constants {
         return mRepository.getDienstRegeling(haltenummer, halteentiteit, c.get(Calendar.DAY_OF_WEEK));
     }
 
+    public void updateDienstRegelingManul(int haltenummer, int halteentiteit){
+        mRepository.updateDienstRegelingManual(haltenummer, halteentiteit);
+    }
+
     public LiveData<List<TimeTableItem>> getAll(){
         return mRepository.getAll();
     }

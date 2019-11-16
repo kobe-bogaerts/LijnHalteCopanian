@@ -13,6 +13,8 @@ import com.google.android.material.tabs.TabLayout;
 import com.kolllor3.lijnhaltecopanian.adapter.SectionsPagerAdapter;
 import com.kolllor3.lijnhaltecopanian.util.Utilities;
 
+import java.util.Locale;
+
 public class HalteTimeTableActivity extends AppCompatActivity {
 
     @Override
@@ -30,7 +32,7 @@ public class HalteTimeTableActivity extends AppCompatActivity {
         if(Utilities.isNotNull(actionBar)){
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(String.format("%s %11d",getIntent().getStringExtra("name"), haltenummer));
+            actionBar.setTitle(String.format(Locale.getDefault(), "%s %11d",getIntent().getStringExtra("name"), haltenummer));
         }
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
@@ -44,7 +46,7 @@ public class HalteTimeTableActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

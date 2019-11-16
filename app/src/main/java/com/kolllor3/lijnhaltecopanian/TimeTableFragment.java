@@ -1,8 +1,10 @@
 package com.kolllor3.lijnhaltecopanian;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -13,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kolllor3.lijnhaltecopanian.interfaces.Constants;
-import com.kolllor3.lijnhaltecopanian.model.TimeTableItem;
 import com.kolllor3.lijnhaltecopanian.util.Utilities;
 import com.kolllor3.lijnhaltecopanian.viewModel.TimeTableViewModel;
 
@@ -40,6 +41,9 @@ public class TimeTableFragment extends Fragment implements Constants {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
+
         timeTableViewModel = ViewModelProviders.of(this).get(TimeTableViewModel.class);
         timeTableViewModel.cancelGetDienstregelingRequest();
         if(Utilities.isNull(savedInstanceState))
@@ -74,5 +78,26 @@ public class TimeTableFragment extends Fragment implements Constants {
 //        });
 
         return root;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.halte_timetable_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case  android.R.id.home:
+                if(Utilities.isNotNull(getActivity()))
+                    getActivity().finish();
+                return true;
+            case R.id.refresh_manual:
+                timeTableViewModel.updateDienstRegelingManul(haltenummer, halteentiteit);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

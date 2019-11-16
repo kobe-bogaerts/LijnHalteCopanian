@@ -21,9 +21,12 @@ public class TimeTableRepository {
     }
 
     public LiveData<List<TimeTableItem>> getDienstRegeling(int haltenummer, int halteentiteit, int dayOfWeek){
-        //return db, weekeleks update request sture
         lijnApiProider.getDienstRegeling(haltenummer, halteentiteit);
         return timeTableDao.getTimeTableFromDayOfWeek(haltenummer, dayOfWeek);
+    }
+
+    public void updateDienstRegelingManual(int haltenummer, int halteentiteit){
+        lijnApiProider.getDienstRegeling(haltenummer, halteentiteit);
     }
 
     public LiveData<List<TimeTableItem>> getAll(){

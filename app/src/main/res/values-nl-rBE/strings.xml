@@ -13,4 +13,5 @@
     <string name="delete_selected_favorite_button_text">Verwijder geselecteerde items</string>
     <string name="tab_text_1">Realtime gegevens</string>
     <string name="tab_text_2">Dienstregeling</string>
+    <string name="refresh_manual_text">gegevens van internet bijwerken</string>
 </resources>
