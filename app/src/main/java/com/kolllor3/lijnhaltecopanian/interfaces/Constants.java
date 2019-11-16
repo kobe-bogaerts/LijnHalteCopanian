@@ -1,4 +1,4 @@
-package com.kolllor3.lijnhaltecopanian.constants;
+package com.kolllor3.lijnhaltecopanian.interfaces;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +9,7 @@ public interface Constants {
     String API_URL = "https://api.delijn.be/DLKernOpenData/api/v1/";
     String API_HALE_URL = "https://api.delijn.be/DLKernOpenData/api/v1/haltes/";
     String DIENSTREGELING_PATH = "/dienstregelingen";
+    String DIENSTREGELING_PATH_DATE = "/dienstregelingen?datum=";
 
     Map<String, Integer> ENTITEITEN = new HashMap<String, Integer>(){{
         put("Antwerpen", 1);

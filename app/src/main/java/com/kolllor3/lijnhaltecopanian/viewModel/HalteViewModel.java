@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.kolllor3.lijnhaltecopanian.adapter.HalteListAdapter;
-import com.kolllor3.lijnhaltecopanian.constants.Constants;
+import com.kolllor3.lijnhaltecopanian.interfaces.Constants;
 import com.kolllor3.lijnhaltecopanian.database.HalteRepository;
 import com.kolllor3.lijnhaltecopanian.model.Halte;
 

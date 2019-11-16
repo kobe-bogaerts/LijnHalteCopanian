@@ -16,7 +16,7 @@ public abstract class TimeTableDataBase extends RoomDatabase {
 
     private static TimeTableDataBase INSTANCE;
 
-    static synchronized TimeTableDataBase getDatabase(Context context) {
+    public static synchronized TimeTableDataBase getDatabase(Context context) {
         if (Utilities.isNull(INSTANCE )) {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), TimeTableDataBase.class, "timeTable.db")
                     .build();

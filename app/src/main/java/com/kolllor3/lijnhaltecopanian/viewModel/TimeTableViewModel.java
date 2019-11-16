@@ -10,7 +10,7 @@ import androidx.lifecycle.LiveData;
 import com.kolllor3.lijnhaltecopanian.App;
 import com.kolllor3.lijnhaltecopanian.R;
 import com.kolllor3.lijnhaltecopanian.adapter.TimeTableAdapter;
-import com.kolllor3.lijnhaltecopanian.constants.Constants;
+import com.kolllor3.lijnhaltecopanian.interfaces.Constants;
 import com.kolllor3.lijnhaltecopanian.database.TimeTableRepository;
 import com.kolllor3.lijnhaltecopanian.model.TimeTableItem;
 

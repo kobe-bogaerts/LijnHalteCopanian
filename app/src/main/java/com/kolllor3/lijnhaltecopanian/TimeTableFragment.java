@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.kolllor3.lijnhaltecopanian.constants.Constants;
+import com.kolllor3.lijnhaltecopanian.interfaces.Constants;
 import com.kolllor3.lijnhaltecopanian.model.TimeTableItem;
 import com.kolllor3.lijnhaltecopanian.util.Utilities;
 import com.kolllor3.lijnhaltecopanian.viewModel.TimeTableViewModel;
@@ -66,12 +66,12 @@ public class TimeTableFragment extends Fragment implements Constants {
             timeTableViewModel.getAdapter().setTimeTableItems(timeTableItems);
         });
 
-        //Todo: remove deze debug
-        timeTableViewModel.getAll().observe(this, timeTableItems -> {
-            for (TimeTableItem item: timeTableItems) {
-                Log.i("db data", item.toString());
-            }
-        });
+//        //Todo: remove deze debug
+//        timeTableViewModel.getAll().observe(this, timeTableItems -> {
+//            for (TimeTableItem item: timeTableItems) {
+//                Log.i("db data", item.toString());
+//            }
+//        });
 
         return root;
     }

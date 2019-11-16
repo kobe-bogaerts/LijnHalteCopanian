@@ -9,12 +9,16 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 @Dao
 public interface TimeTableDao {
 
     @Query("SELECT * FROM timeTable WHERE dayOfWeek=:dayOfWeek AND haltenummer = :haltenummer")
     LiveData<List<TimeTableItem>> getTimeTableFromDayOfWeek(int haltenummer, int dayOfWeek);
+
+    @Query("SELECT * FROM timeTable WHERE dayOfWeek=:dayOfWeek AND haltenummer = :haltenummer")
+    List<TimeTableItem> getTimeTableFromDayOfWeekToList(int haltenummer, int dayOfWeek);
 
     @Query("SELECT * FROM timeTable")
     LiveData<List<TimeTableItem>> getAll();
@@ -27,4 +31,7 @@ public interface TimeTableDao {
 
     @Query("DELETE FROM timeTable")
     void deleteAll();
+
+    @Update
+    void update(TimeTableItem... item);
 }

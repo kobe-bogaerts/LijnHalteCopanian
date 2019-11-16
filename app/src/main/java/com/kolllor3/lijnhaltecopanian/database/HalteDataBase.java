@@ -21,7 +21,7 @@ public abstract class HalteDataBase extends RoomDatabase {
 
     private static HalteDataBase INSTANCE;
 
-    static synchronized HalteDataBase getDatabase(Context context) {
+    public static synchronized HalteDataBase getDatabase(Context context) {
         if (Utilities.isNull(INSTANCE )) {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), HalteDataBase.class, "halte.db")
                     .createFromAsset("databases/halte.db")

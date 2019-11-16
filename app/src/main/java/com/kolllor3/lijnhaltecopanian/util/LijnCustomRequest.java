@@ -2,7 +2,7 @@ package com.kolllor3.lijnhaltecopanian.util;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
-import com.kolllor3.lijnhaltecopanian.constants.Constants;
+import com.kolllor3.lijnhaltecopanian.interfaces.Constants;
 
 import org.json.JSONObject;
 
