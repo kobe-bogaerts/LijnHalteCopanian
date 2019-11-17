@@ -1,6 +1,6 @@
 package com.kolllor3.lijnhaltecopanian.adapter;
 
-import android.app.Activity;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -20,11 +20,9 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.Time
     private int listItemRecouceId;
     private List<TimeTableItem> items;
     private TimeTableViewModel viewHolder;
-    private Activity activity;
 
-    public TimeTableAdapter(TimeTableViewModel viewModel, Activity activity, int listItemRecouceId) {
+    public TimeTableAdapter(TimeTableViewModel viewModel, int listItemRecouceId) {
         this.viewHolder = viewModel;
-        this.activity = activity;
         this.listItemRecouceId = listItemRecouceId;
     }
 
@@ -53,10 +51,9 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.Time
     }
 
     public void setTimeTableItems(List<TimeTableItem> items){
-        if(Utilities.isNotNull(activity)) {
-            this.items = items;
-            activity.runOnUiThread(this::notifyDataSetChanged);
-        }
+        this.items = items;
+        Handler h = new Handler();
+        h.post(this::notifyDataSetChanged);
     }
 
     class TimeLineViewHolder extends RecyclerView.ViewHolder{

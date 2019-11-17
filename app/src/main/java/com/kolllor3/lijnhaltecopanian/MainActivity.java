@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements Constants {
         halteViewModel = ViewModelProviders.of(this).get(HalteViewModel.class);
 
         if(Utilities.isNull(savedInstanceState))
-            halteViewModel.init(this);
+            halteViewModel.init();
 
         RecyclerView halteList = findViewById(R.id.halteList);
         halteList.setLayoutManager(new LinearLayoutManager(this));

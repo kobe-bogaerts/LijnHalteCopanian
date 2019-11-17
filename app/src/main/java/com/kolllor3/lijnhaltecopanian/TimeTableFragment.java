@@ -47,7 +47,7 @@ public class TimeTableFragment extends Fragment implements Constants {
         timeTableViewModel = ViewModelProviders.of(this).get(TimeTableViewModel.class);
         timeTableViewModel.cancelGetDienstregelingRequest();
         if(Utilities.isNull(savedInstanceState))
-            timeTableViewModel.init(getActivity());
+            timeTableViewModel.init();
 
         if (getArguments() != null) {
             haltenummer = getArguments().getInt(ARG_HALTE_NUMBER);
@@ -73,7 +73,7 @@ public class TimeTableFragment extends Fragment implements Constants {
 //        //Todo: remove deze debug
 //        timeTableViewModel.getAll().observe(this, timeTableItems -> {
 //            for (TimeTableItem item: timeTableItems) {
-//                Log.i("db data", item.toString());
+//                LogUtils.logI("db data", item.toString());
 //            }
 //        });
 

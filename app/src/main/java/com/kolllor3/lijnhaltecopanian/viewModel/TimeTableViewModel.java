@@ -1,6 +1,5 @@
 package com.kolllor3.lijnhaltecopanian.viewModel;
 
-import android.app.Activity;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
@@ -10,8 +9,8 @@ import androidx.lifecycle.LiveData;
 import com.kolllor3.lijnhaltecopanian.App;
 import com.kolllor3.lijnhaltecopanian.R;
 import com.kolllor3.lijnhaltecopanian.adapter.TimeTableAdapter;
-import com.kolllor3.lijnhaltecopanian.interfaces.Constants;
 import com.kolllor3.lijnhaltecopanian.database.TimeTableRepository;
+import com.kolllor3.lijnhaltecopanian.interfaces.Constants;
 import com.kolllor3.lijnhaltecopanian.model.TimeTableItem;
 
 import java.util.Calendar;
@@ -28,8 +27,8 @@ public class TimeTableViewModel extends AndroidViewModel implements Constants {
         mRepository = new TimeTableRepository(application);
     }
 
-    public void init(Activity activity){
-        adapter = new TimeTableAdapter(this, activity, R.layout.timeline_list_item);
+    public void init(){
+        adapter = new TimeTableAdapter(this, R.layout.timeline_list_item);
     }
 
     public TimeTableAdapter getAdapter() {

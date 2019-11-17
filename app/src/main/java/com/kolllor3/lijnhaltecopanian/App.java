@@ -26,7 +26,7 @@ public class App extends Application {
         super.onCreate();
         mInstance = this;
 
-        Constraints constraints = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).setRequiresBatteryNotLow(true).build();
+        Constraints constraints = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build();
         PeriodicWorkRequest req = new PeriodicWorkRequest.Builder(DienstRegelingBackgroundWorker.class, 1, TimeUnit.DAYS).setConstraints(constraints).build();
         WorkManager.getInstance(this).enqueueUniquePeriodicWork("getDienstregelingFavHalte", ExistingPeriodicWorkPolicy.KEEP, req);
     }

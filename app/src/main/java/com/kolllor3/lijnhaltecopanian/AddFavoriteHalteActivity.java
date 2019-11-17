@@ -48,7 +48,7 @@ public class AddFavoriteHalteActivity extends AppCompatActivity implements Const
         favoriteHalteViewModel = ViewModelProviders.of(this).get(AddFavoriteHalteViewModel.class);
 
         if(Utilities.isNull(savedInstanceState))
-            favoriteHalteViewModel.init(this);
+            favoriteHalteViewModel.init();
 
         findViewById(R.id.get_nearby_button).setOnClickListener(v -> locationProvider.getLocation());
 

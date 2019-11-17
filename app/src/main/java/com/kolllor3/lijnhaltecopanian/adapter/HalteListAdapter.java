@@ -1,6 +1,6 @@
 package com.kolllor3.lijnhaltecopanian.adapter;
 
-import android.app.Activity;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -8,9 +8,9 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.kolllor3.lijnhaltecopanian.R;
 import com.kolllor3.lijnhaltecopanian.model.Halte;
-import com.kolllor3.lijnhaltecopanian.util.Utilities;
 import com.kolllor3.lijnhaltecopanian.viewModel.BaseHalteViewModel;
 
 import java.util.List;
@@ -19,11 +19,9 @@ public class HalteListAdapter extends RecyclerView.Adapter<HalteListAdapter.Halt
 
     private List<Halte> halteItems;
     private BaseHalteViewModel modelView;
-    private Activity activity;
 
-    public HalteListAdapter(BaseHalteViewModel modelView, Activity activity) {
+    public HalteListAdapter(BaseHalteViewModel modelView) {
         this.modelView = modelView;
-        this.activity = activity;
     }
 
     @NonNull
@@ -53,10 +51,9 @@ public class HalteListAdapter extends RecyclerView.Adapter<HalteListAdapter.Halt
     }
 
     public void setHalteItems(List<Halte> items){
-        if(Utilities.isNotNull(activity)) {
             halteItems = items;
-            activity.runOnUiThread(this::notifyDataSetChanged);
-        }
+            Handler h = new Handler();
+            h.post(this::notifyDataSetChanged);
     }
 
     public List<Halte> getHalteItems() {
