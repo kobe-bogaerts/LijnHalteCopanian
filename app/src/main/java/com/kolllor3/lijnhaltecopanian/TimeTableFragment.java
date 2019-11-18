@@ -7,6 +7,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -28,7 +29,7 @@ public class TimeTableFragment extends Fragment implements Constants {
     private TimeTableViewModel timeTableViewModel;
     private int haltenummer;
     private int halteentiteit;
-    private LottieAnimationView loadingView;
+    private LinearLayout loadingView;
 
 
     public static TimeTableFragment newInstance(int haltenummer, int halteentiteit) {
