@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
+import com.kolllor3.lijnhaltecopanian.model.RealTimeItem;
 import com.kolllor3.lijnhaltecopanian.model.TimeTableItem;
 import com.kolllor3.lijnhaltecopanian.providers.LijnApiProider;
 
@@ -31,5 +32,9 @@ public class TimeTableRepository {
 
     public LiveData<List<TimeTableItem>> getAll(){
         return timeTableDao.getAll();
+    }
+
+    public LiveData<List<RealTimeItem>> getRealTimeDate(int haltenummer, int halteentiteit){
+        return lijnApiProider.getRealTimeDate(haltenummer, halteentiteit);
     }
 }
