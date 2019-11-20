@@ -30,7 +30,7 @@ public class LijnApiRealTimeBackgroundTask extends AsyncTask<JSONObject, Void, L
             for (int i = 0; i < doorkomstenArray.length(); i++) {
                 JSONObject object = doorkomstenArray.getJSONObject(i);
                 Date date = dateFormat.parse(object.getString("dienstregelingTijdstip"));
-                Date dateRealTime = dateFormat.parse(object.getString("dienstregelingTijdstip"));
+                Date dateRealTime = dateFormat.parse(object.getString("real-timeTijdstip"));
                 if (Utilities.isNotNull(date) && Utilities.isNotNull(dateRealTime)) {
                     Calendar c = Calendar.getInstance();
                     Calendar cRealTime = Calendar.getInstance();

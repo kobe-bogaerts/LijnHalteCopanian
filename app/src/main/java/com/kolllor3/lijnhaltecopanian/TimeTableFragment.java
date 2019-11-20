@@ -28,7 +28,6 @@ public class TimeTableFragment extends Fragment implements Constants {
     private TimeTableViewModel timeTableViewModel;
     private int haltenummer;
     private int halteentiteit;
-    private LinearLayout loadingView;
 
 
     public static TimeTableFragment newInstance(int haltenummer, int halteentiteit) {
@@ -65,7 +64,7 @@ public class TimeTableFragment extends Fragment implements Constants {
         timeLineList.setLayoutManager(new LinearLayoutManager(getContext()));
         timeLineList.setAdapter(timeTableViewModel.getAdapter());
 
-        loadingView = root.findViewById(R.id.loading_icon);
+        LinearLayout loadingView = root.findViewById(R.id.loading_icon);
 
         timeTableViewModel.getDienstRegeling(haltenummer, halteentiteit).observe(this, timeTableItems -> {
             if(timeTableItems.size() > 0) {

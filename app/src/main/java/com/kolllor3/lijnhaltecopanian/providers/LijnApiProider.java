@@ -67,7 +67,7 @@ public class LijnApiProider implements Constants {
         LijnCustomRequest request = new LijnCustomRequest(API_HALE_URL.concat(String.valueOf(halteentiteit)).concat("/").concat(String.valueOf(haltenummer)).concat(REALTIME_PATH), null, response -> {
             try {
                 LijnApiRealTimeBackgroundTask task = new LijnApiRealTimeBackgroundTask();
-                realTimeHolder.setValue(task.execute(response,  new JSONObject().put("haltenummer", haltenummer).put("halteentiteit", halteentiteit)).get(20, TimeUnit.SECONDS));
+                realTimeHolder.setValue(task.execute(response,  new JSONObject().put("haltenummer", haltenummer).put("halteentiteit", halteentiteit)).get(4, TimeUnit.SECONDS));
             } catch (JSONException | InterruptedException | ExecutionException | TimeoutException e) {
                 e.printStackTrace();
             }

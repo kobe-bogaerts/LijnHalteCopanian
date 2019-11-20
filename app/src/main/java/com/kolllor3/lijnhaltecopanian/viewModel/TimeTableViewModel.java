@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 
 import com.kolllor3.lijnhaltecopanian.App;
 import com.kolllor3.lijnhaltecopanian.R;
+import com.kolllor3.lijnhaltecopanian.adapter.RealTimeTableAdapter;
 import com.kolllor3.lijnhaltecopanian.adapter.TimeTableAdapter;
 import com.kolllor3.lijnhaltecopanian.database.TimeTableRepository;
 import com.kolllor3.lijnhaltecopanian.interfaces.Constants;
@@ -21,6 +22,7 @@ public class TimeTableViewModel extends AndroidViewModel implements Constants {
 
     private TimeTableRepository mRepository;
     private TimeTableAdapter adapter;
+    private RealTimeTableAdapter realTimeAdapter;
 
 
     public TimeTableViewModel(@NonNull Application application) {
@@ -30,10 +32,15 @@ public class TimeTableViewModel extends AndroidViewModel implements Constants {
 
     public void init(){
         adapter = new TimeTableAdapter(this, R.layout.timeline_list_item);
+        realTimeAdapter = new RealTimeTableAdapter(this, R.layout.real_timeline_list_item);
     }
 
     public TimeTableAdapter getAdapter() {
         return adapter;
+    }
+
+    public RealTimeTableAdapter getRealTimeAdapter() {
+        return realTimeAdapter;
     }
 
     public LiveData<List<TimeTableItem>> getDienstRegeling(int haltenummer, int halteentiteit){
