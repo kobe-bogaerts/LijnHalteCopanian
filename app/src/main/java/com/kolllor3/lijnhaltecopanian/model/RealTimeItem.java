@@ -1,6 +1,9 @@
 package com.kolllor3.lijnhaltecopanian.model;
 
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class RealTimeItem {
 
@@ -56,5 +59,13 @@ public class RealTimeItem {
 
     public void setBesteming(String besteming) {
         this.besteming = besteming;
+    }
+
+    public String getTimeTillString(){
+        if(isRealTime()){
+            long diff = getRealTime().getTime().getTime() - new Date().getTime();
+            return String.format(Locale.getDefault(), "%d'", TimeUnit.MILLISECONDS.toMinutes(diff));
+        }
+        return String.format(Locale.getDefault(), "%d:%d", getDienstRegelingTime().get(Calendar.HOUR_OF_DAY), getDienstRegelingTime().get(Calendar.MINUTE));
     }
 }
