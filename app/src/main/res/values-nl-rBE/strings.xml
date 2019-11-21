@@ -15,4 +15,5 @@
     <string name="tab_text_2">Dienstregeling</string>
     <string name="refresh_manual_text">gegevens van internet bijwerken</string>
     <string name="loading_data_text">Data laden</string>
+    <string name="bron_lijn_text">Bron De Lijn</string>
 </resources>
