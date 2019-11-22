@@ -1,5 +1,14 @@
 package com.kolllor3.lijnhaltecopanian.model;
 
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.StrikethroughSpan;
+
+import androidx.core.content.ContextCompat;
+
+import com.kolllor3.lijnhaltecopanian.App;
+import com.kolllor3.lijnhaltecopanian.R;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -12,13 +21,15 @@ public class RealTimeItem {
     private Calendar dienstRegelingTime;
     private Calendar realTime;
     private String besteming;
+    private boolean isGeschrapt;
 
-    public RealTimeItem(int lijnnummer, boolean isRealTime, Calendar dienstRegelingTime, Calendar realTime, String besteming) {
+    public RealTimeItem(int lijnnummer, boolean isRealTime, boolean isGeschrapt, Calendar dienstRegelingTime, Calendar realTime, String besteming) {
         this.lijnnummer = lijnnummer;
         this.isRealTime = isRealTime;
         this.dienstRegelingTime = dienstRegelingTime;
         this.realTime = realTime;
         this.besteming = besteming;
+        this.isGeschrapt = isGeschrapt;
     }
 
     public int getLijnnummer() {
@@ -61,11 +72,30 @@ public class RealTimeItem {
         this.besteming = besteming;
     }
 
-    public String getTimeTillString(){
-        if(isRealTime()){
+    public SpannableString getTimeTillString(){
+        if (isRealTime() && !isGeschrapt()) {
             long diff = getRealTime().getTime().getTime() - new Date().getTime();
-            return String.format(Locale.getDefault(), "%d'", TimeUnit.MILLISECONDS.toMinutes(diff));
+            return new SpannableString(String.format(Locale.getDefault(), "%d'", TimeUnit.MILLISECONDS.toMinutes(diff)));
         }
-        return String.format(Locale.getDefault(), "%d:%d", getDienstRegelingTime().get(Calendar.HOUR_OF_DAY), getDienstRegelingTime().get(Calendar.MINUTE));
+        SpannableString timeString = new SpannableString(String.format(Locale.getDefault(), "%d:%d", getDienstRegelingTime().get(Calendar.HOUR_OF_DAY), getDienstRegelingTime().get(Calendar.MINUTE)));
+        if(isGeschrapt())
+            timeString.setSpan(new StrikethroughSpan(), 0, timeString.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        return timeString;
+    }
+
+    public boolean isGeschrapt() {
+        return isGeschrapt;
+    }
+
+    public void setGeschrapt(boolean geschrapt) {
+        isGeschrapt = geschrapt;
+    }
+
+    public String getGescraptString(){
+        return App.getInstance().getString(R.string.no_drive_string);
+    }
+
+    public int getBasicColor(){
+        return isGeschrapt() ? ContextCompat.getColor(App.getInstance(), android.R.color.holo_red_light) : ContextCompat.getColor(App.getInstance(), android.R.color.black);
     }
 }

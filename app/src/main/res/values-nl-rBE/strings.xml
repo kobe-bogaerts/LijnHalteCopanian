@@ -16,4 +16,5 @@
     <string name="refresh_manual_text">gegevens van internet bijwerken</string>
     <string name="loading_data_text">Data laden</string>
     <string name="bron_lijn_text">Bron De Lijn</string>
+    <string name="no_drive_string">rijdt niet</string>
 </resources>

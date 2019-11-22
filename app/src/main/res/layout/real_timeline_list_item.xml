@@ -10,6 +10,10 @@
         <variable
             name="viewModelRealTimeTable"
             type="com.kolllor3.lijnhaltecopanian.viewModel.TimeTableViewModel" />
+
+        <variable
+            name="realTimeLijnItem"
+            type="com.kolllor3.lijnhaltecopanian.model.LijnItem" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:orientation="horizontal"
@@ -23,7 +27,12 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:text="@{``+realTimeTableItem.lijnnummer}"
+            android:background="@{realTimeLijnItem.getKleurAchter()}"
+            android:textColor="@{realTimeLijnItem.getKleurVoor()}"
+            android:textSize="@dimen/big_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +44,8 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="16dp"
             android:maxWidth="60dp"
-            android:text="@{realTimeTableItem.besteming}"
+            android:text="@{realTimeTableItem.isGeschrapt ? realTimeTableItem.getGescraptString() : realTimeTableItem.besteming}"
+            android:textColor="@{realTimeTableItem.getBasicColor()}"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_lijn"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/text_time"
@@ -51,10 +61,11 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:text="@{realTimeTableItem.getTimeTillString}"
+            android:textColor="@{realTimeTableItem.getBasicColor()}"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_besteming"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:layout_width="match_parent"

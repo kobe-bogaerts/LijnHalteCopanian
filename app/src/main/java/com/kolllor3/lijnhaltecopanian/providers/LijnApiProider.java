@@ -6,9 +6,12 @@ import androidx.lifecycle.MutableLiveData;
 import com.kolllor3.lijnhaltecopanian.App;
 import com.kolllor3.lijnhaltecopanian.backgroundTasks.LijnApiDienstRegelingBackgroundTask;
 import com.kolllor3.lijnhaltecopanian.backgroundTasks.LijnApiRealTimeBackgroundTask;
+import com.kolllor3.lijnhaltecopanian.backgroundTasks.LijnKleurApiBackgroundTask;
+import com.kolllor3.lijnhaltecopanian.database.LijnKleurenDao;
 import com.kolllor3.lijnhaltecopanian.database.TimeTableDao;
 import com.kolllor3.lijnhaltecopanian.interfaces.Constants;
 import com.kolllor3.lijnhaltecopanian.interfaces.WorkerCallback;
+import com.kolllor3.lijnhaltecopanian.model.LijnItem;
 import com.kolllor3.lijnhaltecopanian.model.RealTimeItem;
 import com.kolllor3.lijnhaltecopanian.util.LijnCustomRequest;
 import com.kolllor3.lijnhaltecopanian.util.LogUtils;
@@ -26,13 +29,15 @@ import java.util.concurrent.TimeoutException;
 public class LijnApiProider implements Constants {
 
     private TimeTableDao timeTableDao;
+    private LijnKleurenDao lijnKleurenDao;
     private Calendar c;
     private int currentDayOfWeek;
     private int nextDayOfWeek;
     private MutableLiveData<List<RealTimeItem>> realTimeHolder = new MutableLiveData<>();
 
-    public LijnApiProider(TimeTableDao timeTableDao) {
+    public LijnApiProider(TimeTableDao timeTableDao, LijnKleurenDao lijnKleurenDao) {
         this.timeTableDao = timeTableDao;
+        this.lijnKleurenDao = lijnKleurenDao;
         c = Calendar.getInstance();
         currentDayOfWeek = c.get(Calendar.DAY_OF_WEEK);
         c.add(Calendar.DAY_OF_YEAR, 1);
@@ -74,5 +79,23 @@ public class LijnApiProider implements Constants {
         }, error -> LogUtils.logE("error", error.toString()));
         App.getInstance().addTorequestQueue(request, GET_REALTIME_TAG);
         return realTimeHolder;
+    }
+
+    public void getKleurenArrayVoorLijnen(List<LijnItem> lijnItems, MutableLiveData<List<LijnItem>> holder){
+        StringBuilder lijnSleutelsBuilder = new StringBuilder();
+        for (LijnItem lijn : lijnItems) {
+            lijnSleutelsBuilder.append(lijn.getEntiteit()).append('_').append(lijn.getLijn()).append('_');
+        }
+        lijnSleutelsBuilder.deleteCharAt(lijnSleutelsBuilder.length() - 1);
+
+        LijnCustomRequest request = new LijnCustomRequest(API_URL.concat(LIJNEN_LIJST_PATH).concat("/").concat(lijnSleutelsBuilder.toString()).concat(KLEUREN_PATH), null, response -> {
+            try {
+                LijnKleurApiBackgroundTask task = new LijnKleurApiBackgroundTask(lijnKleurenDao);
+                holder.setValue(task.execute(response).get(3, TimeUnit.SECONDS));
+            } catch (ExecutionException | InterruptedException | TimeoutException e) {
+                e.printStackTrace();
+            }
+        }, error -> LogUtils.logE("error", error.toString()));
+        App.getInstance().addTorequestQueue(request, GET_LIJN_KLEUREN_TAG);
     }
 }

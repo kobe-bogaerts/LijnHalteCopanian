@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "5e3a7762a523b277f7e366f195a985a0",
+    "identityHash": "57f1af72fdaa29edc8f25c75a13b0fae",
     "entities": [
       {
         "tableName": "timeTable",
@@ -59,12 +59,51 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "lijnKleuren",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`lijn` INTEGER NOT NULL, `entiteit` INTEGER NOT NULL, `kleurCodeVoor` TEXT, `kleurCodeAchter` TEXT, PRIMARY KEY(`lijn`, `entiteit`))",
+        "fields": [
+          {
+            "fieldPath": "lijn",
+            "columnName": "lijn",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "entiteit",
+            "columnName": "entiteit",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "kleurCodeVoor",
+            "columnName": "kleurCodeVoor",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "kleurCodeAchter",
+            "columnName": "kleurCodeAchter",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "lijn",
+            "entiteit"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5e3a7762a523b277f7e366f195a985a0')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '57f1af72fdaa29edc8f25c75a13b0fae')"
     ]
   }
 }

@@ -26,4 +26,5 @@
     <string name="refresh_manual_text">update data from the internet</string>
     <string name="loading_data_text">Loading data</string>
     <string name="bron_lijn_text">Source De Lijn</string>
+    <string name="no_drive_string">doesn\'t drive</string>
 </resources>

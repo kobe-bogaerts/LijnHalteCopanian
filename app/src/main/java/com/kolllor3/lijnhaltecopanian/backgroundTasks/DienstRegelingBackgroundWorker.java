@@ -30,7 +30,7 @@ public class DienstRegelingBackgroundWorker extends ListenableWorker {
         HalteDataBase halteDB = HalteDataBase.getDatabase(context);
         favoriteHalteDao = halteDB.getFavoriteHalteDao();
 
-        lijnApiProider = new LijnApiProider(db.getTimeTableDao());
+        lijnApiProider = new LijnApiProider(db.getTimeTableDao(), db.getLijnKleurenDao());
     }
 
     @NonNull

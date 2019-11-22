@@ -12,6 +12,7 @@ import com.kolllor3.lijnhaltecopanian.adapter.RealTimeTableAdapter;
 import com.kolllor3.lijnhaltecopanian.adapter.TimeTableAdapter;
 import com.kolllor3.lijnhaltecopanian.database.TimeTableRepository;
 import com.kolllor3.lijnhaltecopanian.interfaces.Constants;
+import com.kolllor3.lijnhaltecopanian.model.LijnItem;
 import com.kolllor3.lijnhaltecopanian.model.RealTimeItem;
 import com.kolllor3.lijnhaltecopanian.model.TimeTableItem;
 
@@ -62,5 +63,13 @@ public class TimeTableViewModel extends AndroidViewModel implements Constants {
 
     public void cancelGetDienstregelingRequest(){
         App.getInstance().cancelPendingRequests(GET_DIENSTREGELING_TAG);
+    }
+
+    public LiveData<List<LijnItem>> getLijnItems(int lijn, int entiteit){
+        return mRepository.getLijnItems(lijn, entiteit);
+    }
+
+    public LiveData<List<LijnItem>> getLijnItems(Integer[] lijnen, int entiteit){
+        return mRepository.getLijnItems(lijnen, entiteit);
     }
 }

@@ -9,9 +9,12 @@ public interface Constants {
     String API_URL = "https://api.delijn.be/DLKernOpenData/api/v1/";
     String API_HALE_URL = "https://api.delijn.be/DLKernOpenData/api/v1/haltes/";
     String DIENSTREGELING_PATH = "/dienstregelingen";
+    String LIJNEN_LIJST_PATH = "lijnen/lijst";
     String DIENSTREGELING_PATH_DATE = "/dienstregelingen?datum=";
     String REALTIME_PATH = "/real-time";
     String REAL_TIME = "REALTIME";
+    String GESCHRAPT = "GESCHRAPT";
+    String KLEUREN_PATH = "/lijnkleuren";
 
     Map<String, Integer> ENTITEITEN = new HashMap<String, Integer>(){{
         put("Antwerpen", 1);
@@ -28,5 +31,6 @@ public interface Constants {
     String ASK_LOCATION_RETURN_ACTION = "GetData";
     String GET_DIENSTREGELING_TAG = "getDienstregeling";
     String GET_REALTIME_TAG = "getRealTime";
+    String GET_LIJN_KLEUREN_TAG = "getLijnKleuren";
 
 }

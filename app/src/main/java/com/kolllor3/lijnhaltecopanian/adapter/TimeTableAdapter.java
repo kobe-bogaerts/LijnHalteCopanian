@@ -1,6 +1,7 @@
 package com.kolllor3.lijnhaltecopanian.adapter;
 
 import android.os.Handler;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -9,6 +10,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.kolllor3.lijnhaltecopanian.model.LijnItem;
 import com.kolllor3.lijnhaltecopanian.model.TimeTableItem;
 import com.kolllor3.lijnhaltecopanian.util.Utilities;
 import com.kolllor3.lijnhaltecopanian.viewModel.TimeTableViewModel;
@@ -20,6 +22,7 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.Time
     private int listItemRecouceId;
     private List<TimeTableItem> items;
     private TimeTableViewModel viewHolder;
+    private SparseArray<LijnItem> lijnItemMap = new SparseArray<>();
 
     public TimeTableAdapter(TimeTableViewModel viewModel, int listItemRecouceId) {
         this.viewHolder = viewModel;
@@ -37,7 +40,7 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.Time
     @Override
     public void onBindViewHolder(@NonNull TimeTableAdapter.TimeLineViewHolder holder, int position) {
         TimeTableItem item = items.get(position);
-        holder.bind(item, viewHolder);
+        holder.bind(item, viewHolder, lijnItemMap.get(item.getLijnnummer()));
     }
 
     @Override
@@ -50,10 +53,14 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.Time
         return Utilities.isNull(items) ? 0 : items.size();
     }
 
-    public void setTimeTableItems(List<TimeTableItem> items){
+    public void setTimeTableItems(List<TimeTableItem> items) {
         this.items = items;
         Handler h = new Handler();
         h.post(this::notifyDataSetChanged);
+    }
+
+    public void setLijnItemMap(SparseArray<LijnItem> lijnItemMap) {
+        this.lijnItemMap = lijnItemMap;
     }
 
     class TimeLineViewHolder extends RecyclerView.ViewHolder{
@@ -65,8 +72,9 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.Time
             this.binding = binding;
         }
 
-        void bind(TimeTableItem item, TimeTableViewModel viewModel){
+        void bind(TimeTableItem item, TimeTableViewModel viewModel, LijnItem lijnItem){
             binding.setVariable(com.kolllor3.lijnhaltecopanian.BR.timeTableItem, item);
+            binding.setVariable(com.kolllor3.lijnhaltecopanian.BR.lijnItem, lijnItem);
             binding.setVariable(com.kolllor3.lijnhaltecopanian.BR.viewModelTimeTable, viewModel);
         }
     }

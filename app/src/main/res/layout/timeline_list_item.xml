@@ -10,6 +10,10 @@
         <variable
             name="viewModelTimeTable"
             type="com.kolllor3.lijnhaltecopanian.viewModel.TimeTableViewModel" />
+
+        <variable
+            name="lijnItem"
+            type="com.kolllor3.lijnhaltecopanian.model.LijnItem" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:orientation="horizontal"
@@ -34,6 +38,11 @@
             android:layout_height="wrap_content"
             android:maxWidth="60dp"
             android:text="@{``+timeTableItem.lijnnummer}"
+            android:background="@{lijnItem.getKleurAchter()}"
+            android:textColor="@{lijnItem.getKleurVoor()}"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:textSize="@dimen/big_text_size"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_time"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/text_besteming"

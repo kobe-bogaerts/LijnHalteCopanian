@@ -4,4 +4,31 @@
     <color name="colorPrimaryDark">#CFB50B</color>
     <color name="colorAccent">#000000</color>
     <color name="grey_card_background">#BEBEBE</color>
+
+
+<!--    lijn kleuren-->
+    <color name="WI">#FFFFFF</color>
+    <color name="TU">#0099AA</color>
+    <color name="RZ">#FF88AA</color>
+    <color name="OR">#EE8822</color>
+    <color name="RO">#BB0022</color>
+    <color name="PA">#991199</color>
+    <color name="MA">#DD0077</color>
+    <color name="LB">#AACCEE</color>
+    <color name="GE">#FFCC11</color>
+    <color name="GR">#229922</color>
+    <color name="MU">#77CCAA</color>
+    <color name="KA">#995511</color>
+    <color name="BL">#1199DD</color>
+    <color name="CR">#C5AA77</color>
+    <color name="ZA">#FFCCAA</color>
+    <color name="GD">#FFDD00</color>
+    <color name="BD">#000099</color>
+    <color name="BO">#771133</color>
+    <color name="KI">#444411</color>
+    <color name="DB">#0044BB</color>
+    <color name="LG">#BBDD00</color>
+    <color name="PE">#005555</color>
+    <color name="ST">#8899AA</color>
+    <color name="ZW">#000000</color>
 </resources>

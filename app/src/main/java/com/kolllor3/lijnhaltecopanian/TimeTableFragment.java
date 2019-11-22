@@ -1,6 +1,7 @@
 package com.kolllor3.lijnhaltecopanian;
 
 import android.os.Bundle;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,8 +17,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kolllor3.lijnhaltecopanian.interfaces.Constants;
+import com.kolllor3.lijnhaltecopanian.model.LijnItem;
+import com.kolllor3.lijnhaltecopanian.model.TimeTableItem;
 import com.kolllor3.lijnhaltecopanian.util.Utilities;
 import com.kolllor3.lijnhaltecopanian.viewModel.TimeTableViewModel;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class TimeTableFragment extends Fragment implements Constants {
@@ -28,6 +34,7 @@ public class TimeTableFragment extends Fragment implements Constants {
     private TimeTableViewModel timeTableViewModel;
     private int haltenummer;
     private int halteentiteit;
+    private Fragment fragment;
 
 
     public static TimeTableFragment newInstance(int haltenummer, int halteentiteit) {
@@ -44,6 +51,8 @@ public class TimeTableFragment extends Fragment implements Constants {
         super.onCreate(savedInstanceState);
 
         setHasOptionsMenu(true);
+
+        fragment = this;
 
         timeTableViewModel = ViewModelProviders.of(this).get(TimeTableViewModel.class);
         timeTableViewModel.cancelGetDienstregelingRequest();
@@ -66,10 +75,25 @@ public class TimeTableFragment extends Fragment implements Constants {
 
         LinearLayout loadingView = root.findViewById(R.id.loading_icon);
 
-        timeTableViewModel.getDienstRegeling(haltenummer, halteentiteit).observe(this, timeTableItems -> {
+        timeTableViewModel.getDienstRegeling(haltenummer, halteentiteit).observe(fragment, timeTableItems -> {
             if(timeTableItems.size() > 0) {
                 timeTableViewModel.cancelGetDienstregelingRequest();
                 loadingView.setVisibility(View.GONE);
+                Map<String, Integer> lijnen = new HashMap<>();
+                for (TimeTableItem item: timeTableItems) {
+                    String lijnNummer = String.valueOf(item.getLijnnummer());
+                    if (!lijnen.containsKey(lijnNummer)){
+                        lijnen.put(lijnNummer, item.getLijnnummer());
+                    }
+                }
+
+                timeTableViewModel.getLijnItems(lijnen.values().toArray(new Integer[0]), halteentiteit).observe(fragment, lijnItems -> {
+                    SparseArray<LijnItem> lijnItemMap = new SparseArray<>();
+                    for (LijnItem i:lijnItems) {
+                        lijnItemMap.put(i.getLijn(), i);
+                    }
+                    timeTableViewModel.getAdapter().setLijnItemMap(lijnItemMap);
+                });
             }else{
                 loadingView.setVisibility(View.VISIBLE);
             }

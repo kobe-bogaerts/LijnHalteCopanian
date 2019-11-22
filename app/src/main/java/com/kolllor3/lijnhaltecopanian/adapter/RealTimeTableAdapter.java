@@ -1,6 +1,7 @@
 package com.kolllor3.lijnhaltecopanian.adapter;
 
 import android.os.Handler;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -9,6 +10,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.kolllor3.lijnhaltecopanian.model.LijnItem;
 import com.kolllor3.lijnhaltecopanian.model.RealTimeItem;
 import com.kolllor3.lijnhaltecopanian.util.Utilities;
 import com.kolllor3.lijnhaltecopanian.viewModel.TimeTableViewModel;
@@ -20,6 +22,7 @@ public class RealTimeTableAdapter extends RecyclerView.Adapter<RealTimeTableAdap
     private int listItemRecouceId;
     private List<RealTimeItem> items;
     private TimeTableViewModel viewHolder;
+    private SparseArray<LijnItem> lijnItemMap = new SparseArray<>();
 
     public RealTimeTableAdapter(TimeTableViewModel viewModel, int listItemRecouceId) {
         this.viewHolder = viewModel;
@@ -37,7 +40,7 @@ public class RealTimeTableAdapter extends RecyclerView.Adapter<RealTimeTableAdap
     @Override
     public void onBindViewHolder(@NonNull RealTimeTableAdapter.TimeLineViewHolder holder, int position) {
         RealTimeItem item = items.get(position);
-        holder.bind(item, viewHolder);
+        holder.bind(item, viewHolder, lijnItemMap.get(item.getLijnnummer()));
     }
 
     @Override
@@ -56,6 +59,10 @@ public class RealTimeTableAdapter extends RecyclerView.Adapter<RealTimeTableAdap
         h.post(this::notifyDataSetChanged);
     }
 
+    public void setLijnItemMap(SparseArray<LijnItem> lijnItemMap) {
+        this.lijnItemMap = lijnItemMap;
+    }
+
     class TimeLineViewHolder extends RecyclerView.ViewHolder{
 
         private ViewDataBinding binding;
@@ -65,8 +72,9 @@ public class RealTimeTableAdapter extends RecyclerView.Adapter<RealTimeTableAdap
             this.binding = binding;
         }
 
-        void bind(RealTimeItem item, TimeTableViewModel viewModel){
+        void bind(RealTimeItem item, TimeTableViewModel viewModel, LijnItem lijnItem){
             binding.setVariable(com.kolllor3.lijnhaltecopanian.BR.realTimeTableItem, item);
+            binding.setVariable(com.kolllor3.lijnhaltecopanian.BR.realTimeLijnItem, lijnItem);
             binding.setVariable(com.kolllor3.lijnhaltecopanian.BR.viewModelRealTimeTable, viewModel);
         }
     }
