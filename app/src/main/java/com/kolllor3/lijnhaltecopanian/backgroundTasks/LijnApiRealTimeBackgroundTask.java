@@ -32,14 +32,18 @@ public class LijnApiRealTimeBackgroundTask extends AsyncTask<JSONObject, Void, L
                 String predictionStatus = object.getJSONArray("predictionStatussen").getString(0);
                 Date date = dateFormat.parse(object.getString("dienstregelingTijdstip"));
                 Date dateRealTime = new Date();
+
                 if(!predictionStatus.equals(GESCHRAPT))
                     dateRealTime = dateFormat.parse(object.getString("real-timeTijdstip"));
+
                 if (Utilities.isNotNull(date) && Utilities.isNotNull(dateRealTime)) {
                     Calendar c = Calendar.getInstance();
                     Calendar cRealTime = Calendar.getInstance();
                     c.setTime(date);
                     cRealTime.setTime(dateRealTime);
-                    realTimeItems.add(new RealTimeItem(object.getInt("lijnnummer"), predictionStatus.equals(GESCHRAPT), predictionStatus.equals(REAL_TIME), c, cRealTime, object.getString("bestemming")));
+                    boolean isGeschreapt = predictionStatus.equals(GESCHRAPT);
+                    boolean isRealTime = predictionStatus.equals(REAL_TIME);
+                    realTimeItems.add(new RealTimeItem(object.getInt("lijnnummer"), isRealTime, isGeschreapt, c, cRealTime, object.getString("bestemming")));
                 }
             }
 
