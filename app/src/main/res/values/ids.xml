@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="add_by_name" type="id" />
+    <item name="add_by_location" type="id" />
+    <item name="add_by_qr" type="id" />
+</resources>

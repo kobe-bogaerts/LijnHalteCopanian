@@ -27,4 +27,7 @@
     <string name="loading_data_text">Loading data</string>
     <string name="bron_lijn_text">Source De Lijn</string>
     <string name="no_drive_string">doesn\'t drive</string>
+    <string name="add_with_location">Add With Location</string>
+    <string name="add_by_name">Add By Name</string>
+    <string name="add_with_qr_code">Add With QR Code</string>
 </resources>

@@ -14,11 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kolllor3.lijnhaltecopanian.interfaces.Constants;
 import com.kolllor3.lijnhaltecopanian.model.Halte;
 import com.kolllor3.lijnhaltecopanian.util.Utilities;
 import com.kolllor3.lijnhaltecopanian.viewModel.HalteViewModel;
+import com.leinardi.android.speeddial.SpeedDialActionItem;
+import com.leinardi.android.speeddial.SpeedDialView;
 
 public class MainActivity extends AppCompatActivity implements Constants {
 
@@ -54,11 +55,8 @@ public class MainActivity extends AppCompatActivity implements Constants {
             }
         });
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> {
-            Intent i = new Intent(this, AddFavoriteHalteActivity.class);
-            startActivity(i);
-        });
+        SpeedDialView menu = findViewById(R.id.fab);
+        setupSpeedDailMenu(menu);
 
         halteViewModel.getFavoriteHaltes().observe(this, haltes -> halteViewModel.getHalteListAdapter().setHalteItems(haltes));
 
@@ -108,6 +106,30 @@ public class MainActivity extends AppCompatActivity implements Constants {
                 default:
                     return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void setupSpeedDailMenu(SpeedDialView view){
+        view.addActionItem(new SpeedDialActionItem.Builder(R.id.add_by_name, android.R.drawable.ic_menu_search).setTheme(R.style.SpeedDialerItems).setLabel(R.string.add_by_name).create());
+        view.addActionItem(new SpeedDialActionItem.Builder(R.id.add_by_location, android.R.drawable.ic_menu_mylocation).setTheme(R.style.SpeedDialerItems).setLabel(R.string.add_with_location).create());
+        view.addActionItem(new SpeedDialActionItem.Builder(R.id.add_by_qr, android.R.drawable.ic_menu_search).setTheme(R.style.SpeedDialerItems).setLabel(R.string.add_with_qr_code).create());
+        view.setOnActionSelectedListener(actionItem -> {
+            switch (actionItem.getId()){
+                case R.id.add_by_name:
+                    Toast.makeText(this, "add by name", Toast.LENGTH_SHORT).show();
+                    break;
+                    case R.id.add_by_location:
+                        Intent i = new Intent(this, AddFavoriteHalteActivity.class);
+                        startActivity(i);
+                    break;
+                    case R.id.add_by_qr:
+                        Toast.makeText(this, "add by qr", Toast.LENGTH_SHORT).show();
+                    break;
+                    default:
+                        break;
+            }
+            view.close();
+            return false;
+        });
     }
 
     @Override
