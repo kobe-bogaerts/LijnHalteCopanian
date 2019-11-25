@@ -2,16 +2,22 @@ package com.kolllor3.lijnhaltecopanian.model;
 
 import androidx.room.Entity;
 import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
 import com.kolllor3.lijnhaltecopanian.util.ColorFactory;
 
-@Entity(tableName = "lijnKleuren", primaryKeys = {"lijn","entiteit"})
+@Entity(tableName = "lijnKleuren")
 public class LijnItem {
 
     private int lijn;
     private int entiteit;
     private String kleurCodeVoor;
     private String kleurCodeAchter;
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
+    public LijnItem() {
+    }
 
     @Ignore
     public LijnItem(int lijn, int entiteit) {
@@ -19,11 +25,20 @@ public class LijnItem {
         this.entiteit = entiteit;
     }
 
+    @Ignore
     public LijnItem(int lijn, int entiteit, String kleurCodeVoor, String kleurCodeAchter) {
         this.lijn = lijn;
         this.entiteit = entiteit;
         this.kleurCodeVoor = kleurCodeVoor;
         this.kleurCodeAchter = kleurCodeAchter;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getLijn() {

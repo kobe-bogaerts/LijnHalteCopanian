@@ -109,9 +109,9 @@ public class MainActivity extends AppCompatActivity implements Constants {
     }
 
     private void setupSpeedDailMenu(SpeedDialView view){
-        view.addActionItem(new SpeedDialActionItem.Builder(R.id.add_by_name, android.R.drawable.ic_menu_search).setTheme(R.style.SpeedDialerItems).setLabel(R.string.add_by_name).create());
-        view.addActionItem(new SpeedDialActionItem.Builder(R.id.add_by_location, android.R.drawable.ic_menu_mylocation).setTheme(R.style.SpeedDialerItems).setLabel(R.string.add_with_location).create());
-        view.addActionItem(new SpeedDialActionItem.Builder(R.id.add_by_qr, android.R.drawable.ic_menu_search).setTheme(R.style.SpeedDialerItems).setLabel(R.string.add_with_qr_code).create());
+        view.addActionItem(new SpeedDialActionItem.Builder(R.id.add_by_name, R.drawable.ic_search).setTheme(R.style.SpeedDialerItems).setLabel(R.string.add_by_name).create());
+        view.addActionItem(new SpeedDialActionItem.Builder(R.id.add_by_location, R.drawable.ic_location).setTheme(R.style.SpeedDialerItems).setLabel(R.string.add_with_location).create());
+        view.addActionItem(new SpeedDialActionItem.Builder(R.id.add_by_qr, R.drawable.ic_qr_code).setTheme(R.style.SpeedDialerItems).setLabel(R.string.add_with_qr_code).create());
         view.setOnActionSelectedListener(actionItem -> {
             switch (actionItem.getId()){
                 case R.id.add_by_name:

@@ -18,6 +18,6 @@
     <string name="bron_lijn_text">Bron De Lijn</string>
     <string name="no_drive_string">rijdt niet</string>
     <string name="add_with_location">Toevoegen Met Locatie</string>
-    <string name="add_with_qr_code">Toevoegen Met QR-code</string>
+    <string name="add_with_qr_code">Toevoegen Met QR</string>
     <string name="add_by_name">Toevoegen Op Naam</string>
 </resources>

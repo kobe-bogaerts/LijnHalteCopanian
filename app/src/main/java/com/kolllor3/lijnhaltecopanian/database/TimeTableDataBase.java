@@ -13,7 +13,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {TimeTableItem.class, LijnItem.class}, version = 2)
+@Database(entities = {TimeTableItem.class, LijnItem.class}, version = 3)
 public abstract class TimeTableDataBase extends RoomDatabase {
 
     public abstract TimeTableDao getTimeTableDao();
@@ -23,10 +23,11 @@ public abstract class TimeTableDataBase extends RoomDatabase {
 
     public static synchronized TimeTableDataBase getDatabase(Context context) {
         if (Utilities.isNull(INSTANCE )) {
-            INSTANCE = Room.databaseBuilder(context.getApplicationContext(), TimeTableDataBase.class, "timeTable.db").addMigrations(new Migration(1, 2) {
+            INSTANCE = Room.databaseBuilder(context.getApplicationContext(), TimeTableDataBase.class, "timeTable.db").addMigrations(new Migration(2, 3) {
                 @Override
                 public void migrate(@NonNull SupportSQLiteDatabase database) {
-                    database.execSQL("CREATE TABLE IF NOT EXISTS `lijnKleuren` (`lijn` INTEGER NOT NULL, `entiteit` INTEGER NOT NULL, `kleurCodeVoor` TEXT, `kleurCodeAchter` TEXT, PRIMARY KEY(`lijn`, `entiteit`))");
+                    database.execSQL("DROP TABLE lijnKleuren");
+                    database.execSQL("CREATE TABLE IF NOT EXISTS `lijnKleuren` (`lijn` INTEGER NOT NULL, `entiteit` INTEGER NOT NULL, `kleurCodeVoor` TEXT, `kleurCodeAchter` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)");
                 }
             }).build();
         }
