@@ -18,7 +18,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import androidx.lifecycle.MutableLiveData;
+
 public class LijnApiRealTimeBackgroundTask extends AsyncTask<JSONObject, Void, List<RealTimeItem>> implements Constants {
+    private MutableLiveData<List<RealTimeItem>> realTimeHolder;
+
+    public LijnApiRealTimeBackgroundTask(MutableLiveData<List<RealTimeItem>> realTimeHolder) {
+        this.realTimeHolder = realTimeHolder;
+    }
+
     @Override
     protected List<RealTimeItem> doInBackground(JSONObject... params) {
         List<RealTimeItem> realTimeItems = new ArrayList<>();
@@ -51,5 +59,10 @@ public class LijnApiRealTimeBackgroundTask extends AsyncTask<JSONObject, Void, L
             e.printStackTrace();
         }
         return realTimeItems;
+    }
+
+    @Override
+    protected void onPostExecute(List<RealTimeItem> realTimeItems) {
+        realTimeHolder.setValue(realTimeItems);
     }
 }

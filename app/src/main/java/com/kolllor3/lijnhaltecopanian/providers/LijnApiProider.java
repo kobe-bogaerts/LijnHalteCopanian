@@ -1,8 +1,5 @@
 package com.kolllor3.lijnhaltecopanian.providers;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
 import com.kolllor3.lijnhaltecopanian.App;
 import com.kolllor3.lijnhaltecopanian.backgroundTasks.LijnApiDienstRegelingBackgroundTask;
 import com.kolllor3.lijnhaltecopanian.backgroundTasks.LijnApiRealTimeBackgroundTask;
@@ -22,9 +19,9 @@ import org.json.JSONObject;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 public class LijnApiProider implements Constants {
 
@@ -71,9 +68,9 @@ public class LijnApiProider implements Constants {
     public LiveData<List<RealTimeItem>> getRealTimeDate(int haltenummer, int halteentiteit){
         LijnCustomRequest request = new LijnCustomRequest(API_HALE_URL.concat(String.valueOf(halteentiteit)).concat("/").concat(String.valueOf(haltenummer)).concat(REALTIME_PATH), null, response -> {
             try {
-                LijnApiRealTimeBackgroundTask task = new LijnApiRealTimeBackgroundTask();
-                realTimeHolder.setValue(task.execute(response,  new JSONObject().put("haltenummer", haltenummer).put("halteentiteit", halteentiteit)).get(4, TimeUnit.SECONDS));
-            } catch (JSONException | InterruptedException | ExecutionException | TimeoutException e) {
+                LijnApiRealTimeBackgroundTask task = new LijnApiRealTimeBackgroundTask(realTimeHolder);
+                task.execute(response,  new JSONObject().put("haltenummer", haltenummer).put("halteentiteit", halteentiteit));
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
         }, error -> LogUtils.logE("error", error.toString()));
@@ -89,12 +86,8 @@ public class LijnApiProider implements Constants {
         lijnSleutelsBuilder.deleteCharAt(lijnSleutelsBuilder.length() - 1);
 
         LijnCustomRequest request = new LijnCustomRequest(API_URL.concat(LIJNEN_LIJST_PATH).concat("/").concat(lijnSleutelsBuilder.toString()).concat(KLEUREN_PATH), null, response -> {
-            try {
-                LijnKleurApiBackgroundTask task = new LijnKleurApiBackgroundTask(lijnKleurenDao);
-                holder.setValue(task.execute(response).get(3, TimeUnit.SECONDS));
-            } catch (ExecutionException | InterruptedException | TimeoutException e) {
-                e.printStackTrace();
-            }
+            LijnKleurApiBackgroundTask task = new LijnKleurApiBackgroundTask(lijnKleurenDao, holder);
+            task.execute(response);
         }, error -> LogUtils.logE("error", error.toString()));
         App.getInstance().addTorequestQueue(request, GET_LIJN_KLEUREN_TAG);
     }

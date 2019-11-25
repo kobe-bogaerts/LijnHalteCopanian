@@ -12,11 +12,15 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.lifecycle.MutableLiveData;
+
 public class LijnKleurApiBackgroundTask extends AsyncTask<JSONObject, Void, List<LijnItem>> {
     private LijnKleurenDao lijnKleurenDao;
+    private MutableLiveData<List<LijnItem>> holder;
 
-    public LijnKleurApiBackgroundTask(LijnKleurenDao lijnKleurenDao) {
+    public LijnKleurApiBackgroundTask(LijnKleurenDao lijnKleurenDao, MutableLiveData<List<LijnItem>> holder) {
         this.lijnKleurenDao = lijnKleurenDao;
+        this.holder = holder;
     }
 
     @Override
@@ -35,5 +39,10 @@ public class LijnKleurApiBackgroundTask extends AsyncTask<JSONObject, Void, List
             e.printStackTrace();
         }
         return lijnen;
+    }
+
+    @Override
+    protected void onPostExecute(List<LijnItem> lijnItems) {
+        holder.setValue(lijnItems);
     }
 }
