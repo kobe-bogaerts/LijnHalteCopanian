@@ -19,7 +19,7 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.tasks.Task;
-import com.kolllor3.lijnhaltecopanian.AskPermissionActivity;
+import com.kolllor3.lijnhaltecopanian.AskLocationPermissionActivity;
 import com.kolllor3.lijnhaltecopanian.interfaces.Constants;
 import com.kolllor3.lijnhaltecopanian.util.Utilities;
 
@@ -49,7 +49,7 @@ public class LocationProvider implements Constants {
     private boolean checkLocationPermission()
     {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
-            Intent i = new Intent(context, AskPermissionActivity.class);
+            Intent i = new Intent(context, AskLocationPermissionActivity.class);
             context.startActivityForResult(i, LOCATION_PERMISSION_RESULT);
             return false;
         }

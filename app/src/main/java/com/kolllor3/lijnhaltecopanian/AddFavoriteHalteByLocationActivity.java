@@ -34,7 +34,7 @@ public class AddFavoriteHalteByLocationActivity extends AppCompatActivity implem
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_favorite_halte);
+        setContentView(R.layout.activity_add_favorite_halte_by_location);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
