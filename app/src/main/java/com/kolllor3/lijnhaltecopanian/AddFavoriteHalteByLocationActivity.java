@@ -26,7 +26,7 @@ import com.kolllor3.lijnhaltecopanian.viewModel.AddFavoriteHalteViewModel;
 
 import java.util.Locale;
 
-public class AddFavoriteHalteActivity extends AppCompatActivity implements Constants {
+public class AddFavoriteHalteByLocationActivity extends AppCompatActivity implements Constants {
 
     private AddFavoriteHalteViewModel favoriteHalteViewModel;
     private LocationProvider locationProvider;

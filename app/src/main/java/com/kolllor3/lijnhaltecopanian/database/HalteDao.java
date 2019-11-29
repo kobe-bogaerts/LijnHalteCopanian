@@ -25,6 +25,9 @@ public interface HalteDao {
     @Query("SELECT * FROM Halte WHERE haltenummer in(:ids)")
     List<Halte> getHaltesById(int[] ids);
 
+    @Query("SELECT * FROM Halte WHERE omschrijving LIKE :likeString")
+    LiveData<List<Halte>> getHalteByName(String likeString);
+
     @Insert
     void insertAll(Halte... haltes);
 

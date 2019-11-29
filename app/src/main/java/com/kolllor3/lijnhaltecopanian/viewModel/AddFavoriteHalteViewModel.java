@@ -35,4 +35,8 @@ public class AddFavoriteHalteViewModel extends BaseHalteViewModel {
     public void setCurrentLocation(Location location){
         mRepository.setLocation(location);
     }
+
+    public LiveData<List<Halte>> getSearchedHaltes(String search){
+        return mRepository.getHalteSearch(search);
+    }
 }

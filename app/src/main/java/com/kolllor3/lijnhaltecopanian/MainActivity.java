@@ -115,10 +115,11 @@ public class MainActivity extends AppCompatActivity implements Constants {
         view.setOnActionSelectedListener(actionItem -> {
             switch (actionItem.getId()){
                 case R.id.add_by_name:
-                    Toast.makeText(this, "add by name", Toast.LENGTH_SHORT).show();
+                        Intent i2 = new Intent(this, AddFavoriteHalteByName.class);
+                        startActivity(i2);
                     break;
                     case R.id.add_by_location:
-                        Intent i = new Intent(this, AddFavoriteHalteActivity.class);
+                        Intent i = new Intent(this, AddFavoriteHalteByLocationActivity.class);
                         startActivity(i);
                     break;
                     case R.id.add_by_qr:

@@ -44,4 +44,9 @@ public class HalteRepository {
         //dit vormt een locatie die word geset om naar een lijst van nabijgelegen haltes
         return Transformations.switchMap(location, location -> halteDao.getClosestHaltes(location.getLatitude(), location.getLongitude()));
     }
+
+    public LiveData<List<Halte>> getHalteSearch(String search){
+        String likeString = "%" + search + "%";
+        return halteDao.getHalteByName(likeString);
+    }
 }
