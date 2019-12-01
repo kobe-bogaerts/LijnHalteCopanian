@@ -21,4 +21,8 @@
     <string name="add_with_qr_code">Toevoegen Met QR</string>
     <string name="add_by_name">Toevoegen Op Naam</string>
     <string name="hint_search">Naam of Nummer</string>
+    <string name="camera_permissions_dialog_text">Weet u zeker dat u geen cameramachtigingen wilt inschakelen? Het biedt een betere app-ervaring.</string>
+    <string name="camera_permissions_dialog_title">Camera machtigingen</string>
+    <string name="camera_permissions_explain">Deze app gebruikt uw camera om QR-codes te scannen en voegt favoriete haltes voor bus of tram toe. Schakel camera-machtigingen in voor optimaal gebruik van de app.</string>
+    <string name="camera_perm_buton_text">Geef camerarechten</string>
 </resources>

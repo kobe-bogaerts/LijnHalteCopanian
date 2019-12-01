@@ -12,10 +12,14 @@
     </string-array>
     <string name="title_activity_add_favorite_halte" translatable="false">AddFavoriteHalteActivity</string>
     <string name="askPermissionActivity" translatable="false">AskPermissionActivity</string>
-    <string name="location_permissions_explain">This app uses your location to find nearby stops for bus or tram. Please enable location permissions for best use og the app.</string>
+    <string name="location_permissions_explain">This app uses your location to find nearby stops for bus or tram. Please enable location permissions for best use of the app.</string>
+    <string name="camera_permissions_explain">This app uses your camera to scan QR codes to add a favorite stops for bus or tram. Please enable camera permissions for best use of the app.</string>
     <string name="location_perm_buton_text">Give Location Permissions</string>
+    <string name="camera_perm_buton_text">Give Camera Permissions</string>
     <string name="location_permissions_dialog_title">Location Permissions</string>
+    <string name="camera_permissions_dialog_title">Camera Permissions</string>
     <string name="location_permissions_dialog_text">Are you sure you don\'t want location permissions turned on? It provides better app experience.</string>
+    <string name="camera_permissions_dialog_text">Are you sure you don\'t want camera permissions turned on? It provides better app experience.</string>
     <string name="nearby_stops_button_text">Search for nearby stops</string>
     <string name="add_favorite_button_text">Add the selected stops to my favorite stops</string>
     <string name="favorite_haltes_text"><u>Favorite stops</u></string>
@@ -31,4 +35,5 @@
     <string name="add_by_name">Add By Name</string>
     <string name="add_with_qr_code">Add With QR</string>
     <string name="hint_search">Name or Number</string>
+    <string name="title_activity_ask_camera_permission" translatable="false">AskCameraPermissionActivity</string>
 </resources>

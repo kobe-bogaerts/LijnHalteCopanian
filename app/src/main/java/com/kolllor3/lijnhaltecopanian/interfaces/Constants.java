@@ -27,6 +27,8 @@ public interface Constants {
     int LOCATION_PERMISSION_ASK = 9000;
     int LOCATION_PERMISSION_SET = 9001;
     int LOCATION_PERMISSION_RESULT = 9002;
+    int CAMERA_PERMISSION_ASK = 9003;
+    int CAMERA_PERMISSION_RESULT = 9004;
 
     String ASK_LOCATION_RETURN_ACTION = "GetData";
     String GET_DIENSTREGELING_TAG = "getDienstregeling";

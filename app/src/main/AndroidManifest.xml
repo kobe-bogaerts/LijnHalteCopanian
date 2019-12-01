@@ -16,9 +16,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".AddFavoriteHalteByName"
+        <activity
+            android:name=".AskCameraPermissionActivity"
+            android:label="@string/title_activity_ask_camera_permission"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".AddFavoriteHalteByName"
             android:label="@string/title_activity_add_favorite_halte"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".HalteTimeTableActivity"
             android:label="@string/title_activity_halte_time_table"

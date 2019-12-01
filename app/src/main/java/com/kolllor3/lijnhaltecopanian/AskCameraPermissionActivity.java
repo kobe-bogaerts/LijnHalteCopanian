@@ -15,14 +15,14 @@ import androidx.core.app.ActivityCompat;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kolllor3.lijnhaltecopanian.interfaces.Constants;
 
-public class AskLocationPermissionActivity extends AppCompatActivity implements Constants {
+public class AskCameraPermissionActivity extends AppCompatActivity implements Constants {
 
     boolean hasAcceptedPermission;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ask_location_permission);
+        setContentView(R.layout.activity_ask_camera_permission);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -34,9 +34,8 @@ public class AskLocationPermissionActivity extends AppCompatActivity implements 
 
     private void goToMainActivity(){
         if(hasAcceptedPermission){
-            Intent i = new Intent(this, AddFavoriteHalteByLocationActivity.class);
-            i.setAction(ASK_LOCATION_RETURN_ACTION);
-            setResult(LOCATION_PERMISSION_RESULT, i);
+            Intent i = new Intent(this, MainActivity.class);
+            setResult(CAMERA_PERMISSION_RESULT, i);
             finish();
         }else{
             showDialog();
@@ -44,17 +43,17 @@ public class AskLocationPermissionActivity extends AppCompatActivity implements 
     }
 
     private void askLocationPermission(){
-        ActivityCompat.requestPermissions(AskLocationPermissionActivity.this, new String[] { Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION_ASK);
+        ActivityCompat.requestPermissions(AskCameraPermissionActivity.this, new String[] { Manifest.permission.CAMERA}, CAMERA_PERMISSION_ASK);
     }
 
     private void showDialog(){
         new AlertDialog.Builder(this)
-                .setTitle(R.string.location_permissions_dialog_title)
-                .setMessage(R.string.location_permissions_dialog_text)
+                .setTitle(R.string.camera_permissions_dialog_title)
+                .setMessage(R.string.camera_permissions_dialog_text)
                 // Specifying a listener allows you to take an action before dismissing the dialog.
                 // The dialog is automatically dismissed when a dialog button is clicked.
                 .setPositiveButton(android.R.string.yes, (dialog, which) -> {
-                    Intent i = new Intent(this, AddFavoriteHalteByLocationActivity.class);
+                    Intent i = new Intent(this, MainActivity.class);
                     startActivity(i);
                 })
                 // A null listener allows the button to dismiss the dialog and take no further action.
@@ -65,7 +64,7 @@ public class AskLocationPermissionActivity extends AppCompatActivity implements 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode == LOCATION_PERMISSION_ASK) {
+        if(requestCode == CAMERA_PERMISSION_ASK) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Granted access", Toast.LENGTH_LONG).show();
                 hasAcceptedPermission = true;
@@ -74,4 +73,5 @@ public class AskLocationPermissionActivity extends AppCompatActivity implements 
             }
         }
     }
+
 }
