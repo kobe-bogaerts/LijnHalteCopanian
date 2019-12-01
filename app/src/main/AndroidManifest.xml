@@ -16,7 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".AddFavoriteHalteByName"></activity>
+        <activity android:name=".AddFavoriteHalteByName"
+            android:label="@string/title_activity_add_favorite_halte"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".HalteTimeTableActivity"
             android:label="@string/title_activity_halte_time_table"
