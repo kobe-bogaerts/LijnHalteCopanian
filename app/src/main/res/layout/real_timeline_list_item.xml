@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="androidx.core.content.ContextCompat"/>
         <variable
             name="realTimeTableItem"
             type="com.kolllor3.lijnhaltecopanian.model.RealTimeItem" />
@@ -30,8 +31,8 @@
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:text="@{``+realTimeTableItem.lijnnummer}"
-            android:background="@{realTimeLijnItem.getKleurAchter()}"
-            android:textColor="@{realTimeLijnItem.getKleurVoor()}"
+            android:background="@{realTimeLijnItem.getKleurAchter() != 0 ? ContextCompat.getColor(context, realTimeLijnItem.getKleurAchter()) : realTimeLijnItem.getKleurAchter()}"
+            android:textColor="@{realTimeLijnItem.getKleurVoor() != 0 ? ContextCompat.getColor(context, realTimeLijnItem.getKleurVoor()) : realTimeLijnItem.getKleurVoor()}"
             android:textSize="@dimen/big_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

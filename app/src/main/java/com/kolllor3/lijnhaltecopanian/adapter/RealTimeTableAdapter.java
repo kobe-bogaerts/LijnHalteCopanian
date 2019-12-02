@@ -5,17 +5,15 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.kolllor3.lijnhaltecopanian.model.LijnItem;
 import com.kolllor3.lijnhaltecopanian.model.RealTimeItem;
 import com.kolllor3.lijnhaltecopanian.util.Utilities;
 import com.kolllor3.lijnhaltecopanian.viewModel.TimeTableViewModel;
-
 import java.util.List;
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class RealTimeTableAdapter extends RecyclerView.Adapter<RealTimeTableAdapter.TimeLineViewHolder>{
 
