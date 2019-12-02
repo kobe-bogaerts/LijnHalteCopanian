@@ -16,10 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".AddFavoriteHalteByQRActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".AskCameraPermissionActivity"
             android:label="@string/title_activity_ask_camera_permission"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AddFavoriteHalteByName"
             android:label="@string/title_activity_add_favorite_halte"

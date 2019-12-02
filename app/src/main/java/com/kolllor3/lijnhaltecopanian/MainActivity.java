@@ -1,6 +1,8 @@
 package com.kolllor3.lijnhaltecopanian;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -58,7 +61,13 @@ public class MainActivity extends AppCompatActivity implements Constants {
         SpeedDialView menu = findViewById(R.id.fab);
         setupSpeedDailMenu(menu);
 
-        halteViewModel.getFavoriteHaltes().observe(this, haltes -> halteViewModel.getHalteListAdapter().setHalteItems(haltes));
+        halteViewModel.getFavoriteHaltes().observe(this, haltes -> {
+            if(haltes.size() == 0)
+                findViewById(R.id.empty_list_txt).setVisibility(View.VISIBLE);
+            else
+                findViewById(R.id.empty_list_txt).setVisibility(View.GONE);
+            halteViewModel.getHalteListAdapter().setHalteItems(haltes);
+        });
 
         halteViewModel.getCurrentSelectedFavoriteHaltesCount().observe(this, size -> {
             if(size == 0){
@@ -123,7 +132,13 @@ public class MainActivity extends AppCompatActivity implements Constants {
                         startActivity(i);
                     break;
                     case R.id.add_by_qr:
-                        Toast.makeText(this, "add by qr", Toast.LENGTH_SHORT).show();
+                        Intent i3;
+                        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED){
+                            i3 = new Intent(this, AskCameraPermissionActivity.class);
+                        }else{
+                            i3 = new Intent(this, AddFavoriteHalteByQRActivity.class);
+                        }
+                        startActivity(i3);
                     break;
                     default:
                         break;

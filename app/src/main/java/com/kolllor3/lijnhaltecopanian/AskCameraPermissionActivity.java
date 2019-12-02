@@ -26,7 +26,7 @@ public class AskCameraPermissionActivity extends AppCompatActivity implements Co
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        findViewById(R.id.location_perm_button).setOnClickListener(v -> askLocationPermission());
+        findViewById(R.id.location_perm_button).setOnClickListener(v -> askCameraPermission());
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> goToMainActivity());
@@ -34,7 +34,7 @@ public class AskCameraPermissionActivity extends AppCompatActivity implements Co
 
     private void goToMainActivity(){
         if(hasAcceptedPermission){
-            Intent i = new Intent(this, MainActivity.class);
+            Intent i = new Intent(this, AddFavoriteHalteByQRActivity.class);
             setResult(CAMERA_PERMISSION_RESULT, i);
             finish();
         }else{
@@ -42,7 +42,7 @@ public class AskCameraPermissionActivity extends AppCompatActivity implements Co
         }
     }
 
-    private void askLocationPermission(){
+    private void askCameraPermission(){
         ActivityCompat.requestPermissions(AskCameraPermissionActivity.this, new String[] { Manifest.permission.CAMERA}, CAMERA_PERMISSION_ASK);
     }
 
@@ -53,7 +53,7 @@ public class AskCameraPermissionActivity extends AppCompatActivity implements Co
                 // Specifying a listener allows you to take an action before dismissing the dialog.
                 // The dialog is automatically dismissed when a dialog button is clicked.
                 .setPositiveButton(android.R.string.yes, (dialog, which) -> {
-                    Intent i = new Intent(this, MainActivity.class);
+                    Intent i = new Intent(this, AddFavoriteHalteByQRActivity.class);
                     startActivity(i);
                 })
                 // A null listener allows the button to dismiss the dialog and take no further action.
