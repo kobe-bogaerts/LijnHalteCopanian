@@ -7,26 +7,29 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
-
-import com.budiyev.android.codescanner.CodeScanner;
-import com.budiyev.android.codescanner.CodeScannerView;
-import com.google.zxing.BarcodeFormat;
-import com.kolllor3.lijnhaltecopanian.interfaces.Constants;
-import com.kolllor3.lijnhaltecopanian.util.Utilities;
-
-import java.util.Collections;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProviders;
+
+import com.budiyev.android.codescanner.CodeScanner;
+import com.budiyev.android.codescanner.CodeScannerView;
+import com.google.zxing.BarcodeFormat;
+import com.kolllor3.lijnhaltecopanian.interfaces.Constants;
+import com.kolllor3.lijnhaltecopanian.util.LogUtils;
+import com.kolllor3.lijnhaltecopanian.util.Utilities;
+import com.kolllor3.lijnhaltecopanian.viewModel.AddFavoriteHalteViewModel;
+
+import java.util.Collections;
 
 public class AddFavoriteHalteByQRActivity extends AppCompatActivity implements Constants {
 
     private CodeScanner mCodeScanner;
     private Activity activity;
+    private AddFavoriteHalteViewModel favoriteHalteViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +46,22 @@ public class AddFavoriteHalteByQRActivity extends AppCompatActivity implements C
         }
 
         activity = this;
+
+        favoriteHalteViewModel = ViewModelProviders.of(this).get(AddFavoriteHalteViewModel.class);
+
+        if(Utilities.isNull(savedInstanceState))
+            favoriteHalteViewModel.init();
+
         CodeScannerView scannerView = findViewById(R.id.scanner_view);
         mCodeScanner = new CodeScanner(activity, scannerView);
         mCodeScanner.setFormats(Collections.singletonList(BarcodeFormat.QR_CODE));
-        mCodeScanner.setDecodeCallback(result -> activity.runOnUiThread(() -> Toast.makeText(activity, result.getText(), Toast.LENGTH_SHORT).show()));
+        mCodeScanner.setDecodeCallback(result -> activity.runOnUiThread(() -> {
+            if(result.getText().startsWith(URL_BEGIN)){
+                favoriteHalteViewModel.addFavoriteHalte(getHalteNummerFromUtl(result.getText()));
+                finish();
+            }
+            LogUtils.logI("QR", result.getText());
+        }));
         scannerView.setOnClickListener(view -> mCodeScanner.startPreview());
     }
 
@@ -59,6 +74,10 @@ public class AddFavoriteHalteByQRActivity extends AppCompatActivity implements C
         }else {
             mCodeScanner.startPreview();
         }
+    }
+
+    private int getHalteNummerFromUtl(String url){
+        return Integer.parseInt(url.substring(url.lastIndexOf('/')+1));
     }
 
     @Override

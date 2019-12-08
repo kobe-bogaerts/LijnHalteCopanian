@@ -15,6 +15,7 @@ public interface Constants {
     String REAL_TIME = "REALTIME";
     String GESCHRAPT = "GESCHRAPT";
     String KLEUREN_PATH = "/lijnkleuren";
+    String URL_BEGIN = "http://QRbridge.me/";
 
     Map<String, Integer> ENTITEITEN = new HashMap<String, Integer>(){{
         put("Antwerpen", 1);
