@@ -41,28 +41,28 @@ public class LijnApiDienstRegelingBackgroundTask extends AsyncTask<JSONObject, V
             boolean isEmpty = (timeTableForHalte.size() == 0);
 
             JSONArray doorkomstenArray = params[0].getJSONArray("halteDoorkomsten").getJSONObject(0).getJSONArray("doorkomsten");
+            if(doorkomstenArray.length() > 0) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'kk:mm:ss", Locale.getDefault());
+                Calendar c = Calendar.getInstance();
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'kk:mm:ss", Locale.getDefault());
-            Calendar c = Calendar.getInstance();
-
-            for (int i = 0; i < doorkomstenArray.length(); i++) {
-                JSONObject object = doorkomstenArray.getJSONObject(i);
-                Date date = dateFormat.parse(object.getString("dienstregelingTijdstip"));
-                if (Utilities.isNotNull(date)) {
-                    c.setTime(date);
-                    TimeTableItem newItem = new TimeTableItem(params[1].getInt("haltenummer"), object.getInt("lijnnummer"), c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), c.get(Calendar.DAY_OF_WEEK), object.getString("bestemming"));
-                    if(isEmpty)
-                        timeTableForHalte.add(newItem);
-                    else
-                        timeTableForHalte.set(i, updateTimeLineItem(timeTableForHalte.get(i), newItem));
+                for (int i = 0; i < doorkomstenArray.length(); i++) {
+                    JSONObject object = doorkomstenArray.getJSONObject(i);
+                    Date date = dateFormat.parse(object.getString("dienstregelingTijdstip"));
+                    if (Utilities.isNotNull(date)) {
+                        c.setTime(date);
+                        TimeTableItem newItem = new TimeTableItem(params[1].getInt("haltenummer"), object.getInt("lijnnummer"), c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), c.get(Calendar.DAY_OF_WEEK), object.getString("bestemming"));
+                        if (isEmpty)
+                            timeTableForHalte.add(newItem);
+                        else
+                            timeTableForHalte.set(i, updateTimeLineItem(timeTableForHalte.get(i), newItem));
+                    }
                 }
+
+                if (isEmpty)
+                    timeTableDao.insert(timeTableForHalte.toArray(new TimeTableItem[0]));
+                else
+                    timeTableDao.update(timeTableForHalte.toArray(new TimeTableItem[0]));
             }
-
-            if(isEmpty)
-                timeTableDao.insert(timeTableForHalte.toArray(new TimeTableItem[0]));
-            else
-                timeTableDao.update(timeTableForHalte.toArray(new TimeTableItem[0]));
-
             if(Utilities.isNotNull(callback)){
                 callback.onComplete();
             }

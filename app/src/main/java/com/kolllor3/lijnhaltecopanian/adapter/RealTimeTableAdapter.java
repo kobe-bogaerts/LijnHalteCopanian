@@ -59,6 +59,8 @@ public class RealTimeTableAdapter extends RecyclerView.Adapter<RealTimeTableAdap
 
     public void setLijnItemMap(SparseArray<LijnItem> lijnItemMap) {
         this.lijnItemMap = lijnItemMap;
+        Handler h = new Handler();
+        h.post(this::notifyDataSetChanged);
     }
 
     class TimeLineViewHolder extends RecyclerView.ViewHolder{

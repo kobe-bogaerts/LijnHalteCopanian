@@ -77,7 +77,7 @@ public class RealTimeItem {
             long diff = getRealTime().getTime().getTime() - new Date().getTime();
             return new SpannableString(String.format(Locale.getDefault(), "%d'", TimeUnit.MILLISECONDS.toMinutes(diff)));
         }
-        SpannableString timeString = new SpannableString(String.format(Locale.getDefault(), "%d:%d", getDienstRegelingTime().get(Calendar.HOUR_OF_DAY), getDienstRegelingTime().get(Calendar.MINUTE)));
+        SpannableString timeString = new SpannableString(String.format(Locale.getDefault(), "%tH:%tM", getDienstRegelingTime(), getDienstRegelingTime()));
         if(isGeschrapt())
             timeString.setSpan(new StrikethroughSpan(), 0, timeString.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         return timeString;

@@ -2,6 +2,8 @@ package com.kolllor3.lijnhaltecopanian.backgroundTasks;
 
 import android.os.AsyncTask;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.kolllor3.lijnhaltecopanian.interfaces.Constants;
 import com.kolllor3.lijnhaltecopanian.model.RealTimeItem;
 import com.kolllor3.lijnhaltecopanian.util.Utilities;
@@ -18,8 +20,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import androidx.lifecycle.MutableLiveData;
-
 public class LijnApiRealTimeBackgroundTask extends AsyncTask<JSONObject, Void, List<RealTimeItem>> implements Constants {
     private MutableLiveData<List<RealTimeItem>> realTimeHolder;
 
@@ -32,29 +32,31 @@ public class LijnApiRealTimeBackgroundTask extends AsyncTask<JSONObject, Void, L
         List<RealTimeItem> realTimeItems = new ArrayList<>();
         try{
             JSONArray doorkomstenArray = params[0].getJSONArray("halteDoorkomsten").getJSONObject(0).getJSONArray("doorkomsten");
+            if(doorkomstenArray.length() > 0) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'kk:mm:ss", Locale.getDefault());
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'kk:mm:ss", Locale.getDefault());
+                for (int i = 0; i < doorkomstenArray.length(); i++) {
+                    JSONObject object = doorkomstenArray.getJSONObject(i);
+                    String predictionStatus = "";
+                    if (object.has("predictionStatussen"))
+                        predictionStatus = object.getJSONArray("predictionStatussen").getString(0);
+                    Date date = dateFormat.parse(object.getString("dienstregelingTijdstip"));
+                    Date dateRealTime = new Date();
 
-            for (int i = 0; i < doorkomstenArray.length(); i++) {
-                JSONObject object = doorkomstenArray.getJSONObject(i);
-                String predictionStatus = object.getJSONArray("predictionStatussen").getString(0);
-                Date date = dateFormat.parse(object.getString("dienstregelingTijdstip"));
-                Date dateRealTime = new Date();
+                    if (!predictionStatus.equals(GESCHRAPT) && predictionStatus.equals(REAL_TIME))
+                        dateRealTime = dateFormat.parse(object.getString("real-timeTijdstip"));
 
-                if(!predictionStatus.equals(GESCHRAPT))
-                    dateRealTime = dateFormat.parse(object.getString("real-timeTijdstip"));
-
-                if (Utilities.isNotNull(date) && Utilities.isNotNull(dateRealTime)) {
-                    Calendar c = Calendar.getInstance();
-                    Calendar cRealTime = Calendar.getInstance();
-                    c.setTime(date);
-                    cRealTime.setTime(dateRealTime);
-                    boolean isGeschreapt = predictionStatus.equals(GESCHRAPT);
-                    boolean isRealTime = predictionStatus.equals(REAL_TIME);
-                    realTimeItems.add(new RealTimeItem(object.getInt("lijnnummer"), isRealTime, isGeschreapt, c, cRealTime, object.getString("bestemming")));
+                    if (Utilities.isNotNull(date) && Utilities.isNotNull(dateRealTime)) {
+                        Calendar c = Calendar.getInstance();
+                        Calendar cRealTime = Calendar.getInstance();
+                        c.setTime(date);
+                        cRealTime.setTime(dateRealTime);
+                        boolean isGeschreapt = predictionStatus.equals(GESCHRAPT);
+                        boolean isRealTime = predictionStatus.equals(REAL_TIME);
+                        realTimeItems.add(new RealTimeItem(object.getInt("lijnnummer"), isRealTime, isGeschreapt, c, cRealTime, object.getString("bestemming")));
+                    }
                 }
             }
-
         } catch (JSONException | ParseException e) {
             e.printStackTrace();
         }

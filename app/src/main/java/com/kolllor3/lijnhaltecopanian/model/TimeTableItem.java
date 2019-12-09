@@ -5,6 +5,8 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.util.Locale;
+
 @Entity(tableName = "timeTable")
 public class TimeTableItem {
 
@@ -96,6 +98,6 @@ public class TimeTableItem {
     @NonNull
     @Override
     public String toString() {
-        return String.format("%d, lijn: %d, %d%d, %s || %s", haltenummer, lijnnummer, hour, minute, dayOfWeek, bestemming);
+        return String.format(Locale.getDefault(),"%d, lijn: %d, %d%d, %s || %s", haltenummer, lijnnummer, hour, minute, dayOfWeek, bestemming);
     }
 }

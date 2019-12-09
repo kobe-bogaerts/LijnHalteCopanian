@@ -10,8 +10,8 @@
         <item>Limburg</item>
         <item>West-Vlaanderen</item>
     </string-array>
-    <string name="title_activity_add_favorite_halte" translatable="false">AddFavoriteHalteActivity</string>
-    <string name="askPermissionActivity" translatable="false">AskPermissionActivity</string>
+    <string name="title_activity_add_favorite_halte" translatable="false">Add Favorite Halte</string>
+    <string name="askPermissionActivity" translatable="false">Ask Permissions</string>
     <string name="location_permissions_explain">This app uses your location to find nearby stops for bus or tram. Please enable location permissions for best use of the app.</string>
     <string name="camera_permissions_explain">This app uses your camera to scan QR codes to add a favorite stops for bus or tram. Please enable camera permissions for best use of the app.</string>
     <string name="location_perm_buton_text">Give Location Permissions</string>
@@ -26,7 +26,7 @@
     <string name="delete_selected_favorite_button_text">Delete selected items</string>
     <string name="title_activity_halte_time_table" translatable="false">HalteTimeTableActivity</string>
     <string name="tab_text_1">Real time data</string>
-    <string name="tab_text_2">Timeable</string>
+    <string name="tab_text_2">TimeTable</string>
     <string name="refresh_manual_text">update data from the internet</string>
     <string name="loading_data_text">Loading data</string>
     <string name="bron_lijn_text">Source De Lijn</string>
@@ -36,5 +36,5 @@
     <string name="add_by_name">Add By Name</string>
     <string name="add_with_qr_code">Add With QR</string>
     <string name="hint_search">Name or Number</string>
-    <string name="title_activity_ask_camera_permission" translatable="false">AskCameraPermissionActivity</string>
+    <string name="title_activity_ask_camera_permission" translatable="false">Ask Permissions</string>
 </resources>
