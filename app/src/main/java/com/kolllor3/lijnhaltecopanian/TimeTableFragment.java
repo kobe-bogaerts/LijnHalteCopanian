@@ -55,7 +55,6 @@ public class TimeTableFragment extends Fragment implements Constants {
         fragment = this;
 
         timeTableViewModel = ViewModelProviders.of(this).get(TimeTableViewModel.class);
-        timeTableViewModel.cancelGetDienstregelingRequest();
         if(Utilities.isNull(savedInstanceState))
             timeTableViewModel.init();
 
@@ -99,13 +98,6 @@ public class TimeTableFragment extends Fragment implements Constants {
             }
             timeTableViewModel.getAdapter().setTimeTableItems(timeTableItems);
         });
-
-//        //Todo: remove deze debug
-//        timeTableViewModel.getAll().observe(this, timeTableItems -> {
-//            for (TimeTableItem item: timeTableItems) {
-//                LogUtils.logI("db data", item.toString());
-//            }
-//        });
 
         return root;
     }

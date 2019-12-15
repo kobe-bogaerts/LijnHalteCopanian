@@ -20,14 +20,8 @@ public class CustomRequest extends Request<JSONObject> {
     private Listener<JSONObject> listener;
     private Map<String, String> params;
 
-    public CustomRequest(String url, Map<String, String> params, Listener<JSONObject> reponseListener, ErrorListener errorListener) {
+    CustomRequest(String url, Map<String, String> params, Listener<JSONObject> reponseListener, ErrorListener errorListener) {
         super(Method.GET, url, errorListener);
-        this.listener = reponseListener;
-        this.params = params;
-    }
-
-    public CustomRequest(int method, String url, Map<String, String> params, Listener<JSONObject> reponseListener, ErrorListener errorListener) {
-        super(method, url, errorListener);
         this.listener = reponseListener;
         this.params = params;
     }
@@ -41,9 +35,9 @@ public class CustomRequest extends Request<JSONObject> {
         if(response.statusCode == 200) {
             try {
                 String jsonString = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
-                LogUtils.logI("responds", jsonString);
                 return Response.success(new JSONObject(jsonString), HttpHeaderParser.parseCacheHeaders(response));
             } catch (UnsupportedEncodingException | JSONException e) {
+                e.printStackTrace();
                 return Response.error(new ParseError(e));
             }
         }else{
@@ -53,6 +47,7 @@ public class CustomRequest extends Request<JSONObject> {
 
     @Override
     protected void deliverResponse(JSONObject response) {
+        LogUtils.logI("responds", response.toString());
         listener.onResponse(response);
     }
 }

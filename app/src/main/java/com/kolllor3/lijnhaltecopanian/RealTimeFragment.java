@@ -77,7 +77,6 @@ public class RealTimeFragment extends Fragment {
 
         timeTableViewModel.getRealTimeData(haltenummer, halteentiteit).observe(fragment, realTimeItems -> {
             if(realTimeItems.size() > 0) {
-                timeTableViewModel.cancelGetDienstregelingRequest();
                 loadingView.setVisibility(View.GONE);
                 Map<String, Integer> lijnen = new HashMap<>();
                 for (RealTimeItem item: realTimeItems) {
