@@ -75,7 +75,12 @@ public class RealTimeFragment extends Fragment {
 
         timer = new Timer();
 
-        timeTableViewModel.getRealTimeData(haltenummer, halteentiteit).observe(fragment, realTimeItems -> {
+        return root;
+    }
+
+    @Override
+    onStart() {
+         timeTableViewModel.getRealTimeData(haltenummer, halteentiteit).observe(fragment, realTimeItems -> {
             if(realTimeItems.size() > 0) {
                 loadingView.setVisibility(View.GONE);
                 Map<String, Integer> lijnen = new HashMap<>();
@@ -101,8 +106,6 @@ public class RealTimeFragment extends Fragment {
 
         RealTimeTimerTask realTimeTimerTask = new RealTimeTimerTask(timeTableViewModel, haltenummer, halteentiteit);
         timer.schedule(realTimeTimerTask, 50000, 60000);
-
-        return root;
     }
 
     @Override
