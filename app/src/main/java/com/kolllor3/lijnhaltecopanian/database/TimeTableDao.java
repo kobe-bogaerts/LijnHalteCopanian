@@ -23,8 +23,8 @@ public interface TimeTableDao {
     @Query("SELECT * FROM timeTable")
     LiveData<List<TimeTableItem>> getAll();
 
-    @Query("DELETE FROM timeTable WHERE dayOfWeek=:dayOfWeek")
-    void deleteTimeTableFromDayOfWeek(int dayOfWeek);
+    @Query("DELETE FROM timeTable WHERE dayOfWeek=:dayOfWeek AND haltenummer=:haltenummer")
+    void deleteTimeTableFromDayOfWeek(int dayOfWeek, int haltenummer);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(TimeTableItem... items);

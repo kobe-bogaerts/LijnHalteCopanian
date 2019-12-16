@@ -15,6 +15,7 @@ import com.kolllor3.lijnhaltecopanian.interfaces.Constants;
 import com.kolllor3.lijnhaltecopanian.model.LijnItem;
 import com.kolllor3.lijnhaltecopanian.model.RealTimeItem;
 import com.kolllor3.lijnhaltecopanian.model.TimeTableItem;
+import com.kolllor3.lijnhaltecopanian.util.Utilities;
 
 import java.util.Calendar;
 import java.util.List;
@@ -54,7 +55,10 @@ public class TimeTableViewModel extends AndroidViewModel implements Constants {
     }
 
     public void updateDienstRegelingManul(int haltenummer, int halteentiteit){
-        mRepository.updateDienstRegelingManual(haltenummer, halteentiteit);
+        Utilities.doInBackground(()->{
+            mRepository.deleteTimeTableToday(haltenummer);
+            mRepository.updateDienstRegelingManual(haltenummer, halteentiteit);
+        });
     }
 
     public LiveData<List<TimeTableItem>> getAll(){

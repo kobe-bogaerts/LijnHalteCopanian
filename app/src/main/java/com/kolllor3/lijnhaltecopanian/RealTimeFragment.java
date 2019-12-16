@@ -33,6 +33,7 @@ public class RealTimeFragment extends Fragment {
     private int halteentiteit;
     private Timer timer;
     private Fragment fragment;
+    private LinearLayout loadingView;
 
     public RealTimeFragment() {
         // Required empty public constructor
@@ -71,7 +72,7 @@ public class RealTimeFragment extends Fragment {
         timeLineList.setLayoutManager(new LinearLayoutManager(getContext()));
         timeLineList.setAdapter(timeTableViewModel.getRealTimeAdapter());
 
-        LinearLayout loadingView = root.findViewById(R.id.loading_icon);
+        loadingView = root.findViewById(R.id.loading_icon);
 
         timer = new Timer();
 
@@ -79,7 +80,7 @@ public class RealTimeFragment extends Fragment {
     }
 
     @Override
-    onStart() {
+    public void onStart() {
          timeTableViewModel.getRealTimeData(haltenummer, halteentiteit).observe(fragment, realTimeItems -> {
             if(realTimeItems.size() > 0) {
                 loadingView.setVisibility(View.GONE);
@@ -106,6 +107,7 @@ public class RealTimeFragment extends Fragment {
 
         RealTimeTimerTask realTimeTimerTask = new RealTimeTimerTask(timeTableViewModel, haltenummer, halteentiteit);
         timer.schedule(realTimeTimerTask, 50000, 60000);
+        super.onStart();
     }
 
     @Override

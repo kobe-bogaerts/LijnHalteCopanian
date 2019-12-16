@@ -13,6 +13,7 @@ import com.kolllor3.lijnhaltecopanian.providers.LijnApiProider;
 import com.kolllor3.lijnhaltecopanian.util.Utilities;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class TimeTableRepository {
@@ -69,5 +70,10 @@ public class TimeTableRepository {
             }
         });
         return holder;
+    }
+
+    public void deleteTimeTableToday(int haltenummer){
+        int dayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        timeTableDao.deleteTimeTableFromDayOfWeek(dayOfWeek, haltenummer);
     }
 }

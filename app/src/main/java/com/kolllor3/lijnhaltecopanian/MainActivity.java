@@ -106,15 +106,11 @@ public class MainActivity extends AppCompatActivity implements Constants {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        switch (item.getItemId()){
-            case R.id.action_settings:
-                return true;
-            case R.id.action_edit:
-                isEditing(true);
-                return true;
-                default:
-                    return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.action_edit) {
+            isEditing(true);
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setupSpeedDailMenu(SpeedDialView view){
