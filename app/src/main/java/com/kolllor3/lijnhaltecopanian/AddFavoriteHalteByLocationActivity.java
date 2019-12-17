@@ -50,8 +50,6 @@ public class AddFavoriteHalteByLocationActivity extends AppCompatActivity implem
         if(Utilities.isNull(savedInstanceState))
             favoriteHalteViewModel.init();
 
-        findViewById(R.id.get_nearby_button).setOnClickListener(v -> locationProvider.getLocation());
-
         RecyclerView halteList = findViewById(R.id.halteList);
         halteList.setLayoutManager(new LinearLayoutManager(this));
         halteList.setAdapter(favoriteHalteViewModel.getHalteListAdapter());
@@ -89,6 +87,12 @@ public class AddFavoriteHalteByLocationActivity extends AppCompatActivity implem
             i.putExtra("halteentiteit", halte.getEntiteitnummer());
             startActivity(i);
         });
+    }
+
+    @Override
+    protected void onStart() {
+        locationProvider.getLocation();
+        super.onStart();
     }
 
     @Override
